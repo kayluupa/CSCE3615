@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "11904564618",
+    "project_id": "csce3615",
+    "storage_bucket": "csce3615.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11904564618:android:17e6c74c4b06b64931dc73",
+        "android_client_info": {
+          "package_name": "com.mycompany.aptmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUN3J6yJ-BcJZcn3rLOWX3SpbQc4pK7Z0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
