@@ -205,7 +205,19 @@ Background - White #FFF
     }
 }
 
+/*image for results page*/
+.left-fixed-image {
+    position: fixed;
+    top: 80px; /* Adjust as needed to place under the navbar */
+    left: 0;
+    z-index: 10;
+    padding: 10px;
+}
 
+.left-fixed-image img {
+    max-width: 100px;
+    height: auto;
+}
 
 /* Search Engine Sections */
 .main {
@@ -303,6 +315,7 @@ Background - White #FFF
 .search-container {
     background-color: #fff;
     padding: 20px;
+    margin-left: 120px; /* Adjust margin to accommodate the fixed image */
 }
 
 .search-header {
@@ -348,10 +361,22 @@ Background - White #FFF
 
 #apartmentList li {
     padding: 8px;
-    margin: 5px 0;
+    margin: 10px 0;
     background: #f9f9f9;
-    border-radius: 4px;
-    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#apartmentList .listing {
+    padding: 15px;
+}
+
+#apartmentList .listing h3 {
+    margin: 0 0 10px;
+}
+
+#apartmentList .listing p {
+    margin: 5px 0;
 }
 
 #apartmentList li:hover {
