@@ -294,3 +294,64 @@ Background - White #FFF
     background-color: #74a388;
     transition: background-color 0.3s ease;
 }
+
+/* AHHHH KAYLA PANIC ZONE */
+
+/* Search Page Section */
+.search-container {
+    background-color: #fff;
+    padding: 20px;
+}
+
+.search-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #8FBC8F;
+    border-radius: 4px;
+}
+
+.filter-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.filter-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.filter-options {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-option {
+    margin: 10px 0;
+}
+
+#apartmentList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#apartmentList li {
+    padding: 8px;
+    margin: 5px 0;
+    background: #f9f9f9;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#apartmentList li:hover {
+    background: #ececec;
+}
