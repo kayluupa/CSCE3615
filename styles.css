@@ -387,6 +387,39 @@ Background - White #FFF
 
 body.register-page {
     background-color: #f4f4f4;
+    position: relative;
+}
+
+.register__img--container {
+    position: absolute;
+    left: -190px;
+    top: 200px;
+    width: 50%;
+    height: auto;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.register__img--container img {
+    width: 100%;
+    height: auto;
+    opacity: 100%; /* Adjust opacity as needed to ensure it is behind the form */
+}
+
+.register2__img--container {
+    position: absolute;
+    right: -190px;
+    top: 200px;
+    width: 50%;
+    height: auto;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.register2__img--container img {
+    width: 100%;
+    height: auto;
+    opacity: 100%; /* Adjust opacity as needed to ensure it is behind the form */
 }
 
 .container {
@@ -396,6 +429,8 @@ body.register-page {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
     margin: 50px auto;
+    position: relative; /* Ensure container is positioned above the image */
+    z-index: 1;
 }
 
 .register-form h2 {
