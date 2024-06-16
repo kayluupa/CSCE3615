@@ -205,7 +205,19 @@ Background - White #FFF
     }
 }
 
+/*image for results page*/
+.left-fixed-image {
+    position: fixed;
+    top: 80px; /* Adjust as needed to place under the navbar */
+    left: 0;
+    z-index: 10;
+    padding: 10px;
+}
 
+.left-fixed-image img {
+    max-width: 100px;
+    height: auto;
+}
 
 /* Search Engine Sections */
 .main {
@@ -282,6 +294,8 @@ Background - White #FFF
     color: #fff;
     cursor: pointer;
     text-align: center;
+    position: absolute;
+    top: -5%;
     z-index: 3;
 }
 
@@ -293,4 +307,78 @@ Background - White #FFF
 .main__btn:hover {
     background-color: #74a388;
     transition: background-color 0.3s ease;
+}
+
+/* AHHHH KAYLA PANIC ZONE */
+
+/* Search Page Section */
+.search-container {
+    background-color: #fff;
+    padding: 20px;
+    margin-left: 120px; /* Adjust margin to accommodate the fixed image */
+}
+
+.search-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #8FBC8F;
+    border-radius: 4px;
+}
+
+.filter-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.filter-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.filter-options {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-option {
+    margin: 10px 0;
+}
+
+#apartmentList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#apartmentList li {
+    padding: 8px;
+    margin: 10px 0;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#apartmentList .listing {
+    padding: 15px;
+}
+
+#apartmentList .listing h3 {
+    margin: 0 0 10px;
+}
+
+#apartmentList .listing p {
+    margin: 5px 0;
+}
+
+#apartmentList li:hover {
+    background: #ececec;
 }

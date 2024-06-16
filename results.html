@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Apartments</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="/" id="navbar__logo">AptMate</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="/" class="navbar__links">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="/login.html" class="navbar__links">Login</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="/register.html" class="button">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="left-fixed-image">
+        <img src="images/undrawLocation.svg" alt="Fixed Image" />
+    </div>
+
+    <!-- Search Page Section -->
+    <div class="search-container">
+        <div class="search-header">
+            <input type="text" id="searchBar" class="search-input" placeholder="Enter Zip Code">
+            <button id="filterBtn" class="filter-btn">
+                <img src="images/filterResults.svg" alt="Filter Icon" />
+            </button>
+        </div>
+        <div id="filterOptions" class="filter-options">
+            <div class="filter-option">
+                <label for="price">Price:</label>
+                <select id="price" onchange="filterResults()">
+                    <option value="">Any</option>
+                    <option value="1000">Under $1000</option>
+                    <option value="2000">$1000 - $2000</option>
+                    <option value="3000">$2000 - $3000</option>
+                    <option value="4000">$3000+</option>
+                </select>
+            </div>
+            <div class="filter-option">
+                <label for="bedrooms">Bedrooms:</label>
+                <select id="bedrooms" onchange="filterResults()">
+                    <option value="">Any</option>
+                    <option value="1">1 Bedroom</option>
+                    <option value="2">2 Bedrooms</option>
+                    <option value="3">3 Bedrooms</option>
+                    <option value="4">4+ Bedrooms</option>
+                </select>
+            </div>
+            <div class="filter-option">
+                <label for="bathrooms">Bathrooms:</label>
+                <select id="bathrooms" onchange="filterResults()">
+                    <option value="">Any</option>
+                    <option value="1">1 Bathroom</option>
+                    <option value="2">2 Bathrooms</option>
+                    <option value="3">3 Bathrooms</option>
+                    <option value="4">4+ Bathrooms</option>
+                </select>
+            </div>
+        </div>
+        <ul id="apartmentList">
+            <li data-zipcode="12345" data-price="1500" data-bedrooms="2" data-bathrooms="2">
+                <div class="listing">
+                    <h3>Apartment 1</h3>
+                    <p>Price: $1500</p>
+                    <p>Bedrooms: 2</p>
+                    <p>Bathrooms: 2</p>
+                    <p>Zip: 12345</p>
+                </div>
+            </li>
+            <li data-zipcode="67890" data-price="2500" data-bedrooms="3" data-bathrooms="3">
+                <div class="listing">
+                    <h3>Apartment 2</h3>
+                    <p>Price: $2500</p>
+                    <p>Bedrooms: 3</p>
+                    <p>Bathrooms: 3</p>
+                    <p>Zip: 67890</p>
+                </div>
+            </li>
+            <li data-zipcode="12345" data-price="1200" data-bedrooms="1" data-bathrooms="1">
+                <div class="listing">
+                    <h3>Apartment 3</h3>
+                    <p>Price: $1200</p>
+                    <p>Bedrooms: 1</p>
+                    <p>Bathrooms: 1</p>
+                    <p>Zip: 12345</p>
+                </div>
+            </li>
+            <li data-zipcode="67890" data-price="3000" data-bedrooms="4" data-bathrooms="4">
+                <div class="listing">
+                    <h3>Apartment 4</h3>
+                    <p>Price: $3000</p>
+                    <p>Bedrooms: 4</p>
+                    <p>Bathrooms: 4</p>
+                    <p>Zip: 67890</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
