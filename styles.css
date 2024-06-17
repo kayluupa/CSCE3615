@@ -4,7 +4,10 @@ Primary - Charcoal #1d252a
 Secondary - Sage Green #8FBC8F
 Accent - Soft Pink #ea8484
 Background - White #FFF
+Button Color - Green #8FBC8F
 */
+
+/* Navbar -------------------------------------------------------------------------------------------------------------- */
 
 * {
     box-sizing: border-box;
@@ -205,10 +208,12 @@ Background - White #FFF
     }
 }
 
-/*image for results page*/
+/* Search Engine -------------------------------------------------------------------------------------------------------------- */
+
+/*image for page*/
 .left-fixed-image {
     position: fixed;
-    top: 80px; /* Adjust as needed to place under the navbar */
+    top: 80px;
     left: 0;
     z-index: 10;
     padding: 10px;
@@ -219,7 +224,6 @@ Background - White #FFF
     height: auto;
 }
 
-/* Search Engine Sections */
 .main {
     background-color: #fff;
 }
@@ -311,7 +315,7 @@ Background - White #FFF
 
 /* AHHHH KAYLA PANIC ZONE */
 
-/* Search Page Section */
+/* Search Page -------------------------------------------------------------------------------------------------------------- */
 .search-container {
     background-color: #fff;
     padding: 20px;
@@ -383,8 +387,7 @@ Background - White #FFF
     background: #ececec;
 }
 
-/* Register Page */
-
+/* Register Page -------------------------------------------------------------------------------------------------------------- */
 body.register-page {
     background-color: #f4f4f4;
     position: relative;
@@ -403,7 +406,7 @@ body.register-page {
 .register__img--container img {
     width: 100%;
     height: auto;
-    opacity: 100%; /* Adjust opacity as needed to ensure it is behind the form */
+    opacity: 100%;
 }
 
 .register2__img--container {
@@ -419,17 +422,19 @@ body.register-page {
 .register2__img--container img {
     width: 100%;
     height: auto;
-    opacity: 100%; /* Adjust opacity as needed to ensure it is behind the form */
+    opacity: 100%;
 }
+
+/* Sienna starts crying around here */
 
 .container {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 350px;
     margin: 50px auto;
-    position: relative; /* Ensure container is positioned above the image */
+    position: relative;
     z-index: 1;
 }
 
@@ -458,7 +463,7 @@ body.register-page {
 .form-group button {
     width: 100%;
     padding: 10px;
-    background-color: #5cb85c;
+    background-color: #8FBC8F;
     color: white;
     border: none;
     border-radius: 5px;
