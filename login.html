@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AptMate</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-page">
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="/" id="navbar__logo">AptMate</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="/" class="navbar__links">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="/login.html" class="navbar__links">Login</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="/register.html" class="button">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="login__img--container">
+        <img id="login__img" src="images/LoginImage.svg" />
+    </div>
+    <div class="login2__img--container">
+        <img id="login2__img" src="images/LoginImage2.svg" />
+    </div>
+
+    <!-- Login Section -->
+    <div class="container">
+        <form class="login-form">
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+            <div class="form-group">
+                <a href="/register.html" class="register-link">Need to register?</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -47,3 +47,32 @@ function toggleFilter() {
 
 document.getElementById('filterBtn').addEventListener('click', toggleFilter);
 
+// for eye icons
+document.addEventListener("DOMContentLoaded", function() {
+    const togglePassword1 = document.getElementById('togglePassword1');
+    const togglePassword2 = document.getElementById('togglePassword2');
+
+    if (togglePassword1 && togglePassword2) {
+        togglePassword1.addEventListener('click', function() {
+            console.log("Toggle Password 1 clicked");
+            toggleIcon(this);
+        });
+
+        togglePassword2.addEventListener('click', function() {
+            console.log("Toggle Password 2 clicked");
+            toggleIcon(this);
+        });
+
+        function toggleIcon(element) {
+            console.log("Toggling icon for element: ", element);
+            if (element.getAttribute('src') === 'images/eyeOpen.svg') {
+                element.setAttribute('src', 'images/eyeClosed.svg');
+            } else {
+                element.setAttribute('src', 'images/eyeOpen.svg');
+            }
+        }
+    } else {
+        console.error("Toggle Password elements not found");
+    }
+});
+// eye icons

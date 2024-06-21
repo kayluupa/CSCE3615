@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AptMate</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="register-page">
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="/" id="navbar__logo">AptMate</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="/" class="navbar__links">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="/login.html" class="navbar__links">Login</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="/register.html" class="button">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="register__img--container">
+        <img id="register__img" src="images/RegisterImage.svg" />
+    </div>
+    <div class="register2__img--container">
+        <img id="register2__img" src="images/RegisterImage2.svg" />
+    </div>
+
+    <!-- Register Section !!!!  THIS IS WHERE THE EYE ICONS LIVEEEEEE  !!!!-->
+    <div class="container">
+        <form class="register-form">
+            <h2>Register</h2>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" required>
+                    <img src="images/eyeOpen.svg" class="toggle-password" id="togglePassword1" alt="Show Password">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="retype-password">Retype Password</label>
+                <div class="password-container">
+                    <input type="password" id="retype-password" name="retype-password" required>
+                    <img src="images/eyeOpen.svg" class="toggle-password" id="togglePassword2" alt="Show Password">
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+            <div class="form-group">
+                <a href="/login.html" class="login-link">Have an account?</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
