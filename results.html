@@ -22,6 +22,9 @@
                 <li class="navbar__item">
                     <a href="/login.html" class="navbar__links">Login</a>
                 </li>
+                <li class="navbar__item">
+                    <a href="/favorites.html" class="navbar__links">Favorites</a>
+                </li>
                 <li class="navbar__btn">
                     <a href="/register.html" class="button">Register</a>
                 </li>
@@ -74,40 +77,44 @@
             </div>
         </div>
         <ul id="apartmentList">
-            <li data-zipcode="12345" data-price="1500" data-bedrooms="2" data-bathrooms="2">
+            <li data-id="1" data-zipcode="12345" data-price="1500" data-bedrooms="2" data-bathrooms="2">
                 <div class="listing">
                     <h3>Apartment 1</h3>
                     <p>Price: $1500</p>
                     <p>Bedrooms: 2</p>
                     <p>Bathrooms: 2</p>
                     <p>Zip: 12345</p>
+                    <button class="add-to-favorites" data-id="1" data-name="Apartment 1" data-price="1500" data-bedrooms="2" data-bathrooms="2" data-zipcode="12345">Add to Favorites</button> <!-- Add to Favorites button -->
                 </div>
             </li>
-            <li data-zipcode="67890" data-price="2500" data-bedrooms="3" data-bathrooms="3">
+            <li data-id="2" data-zipcode="67890" data-price="2500" data-bedrooms="3" data-bathrooms="3">
                 <div class="listing">
                     <h3>Apartment 2</h3>
                     <p>Price: $2500</p>
                     <p>Bedrooms: 3</p>
                     <p>Bathrooms: 3</p>
                     <p>Zip: 67890</p>
+                    <button class="add-to-favorites" data-id="2" data-name="Apartment 2" data-price="2500" data-bedrooms="3" data-bathrooms="3" data-zipcode="67890">Add to Favorites</button> <!-- Add to Favorites button -->
                 </div>
             </li>
-            <li data-zipcode="12345" data-price="1200" data-bedrooms="1" data-bathrooms="1">
+            <li data-id="3" data-zipcode="12345" data-price="1200" data-bedrooms="1" data-bathrooms="1">
                 <div class="listing">
                     <h3>Apartment 3</h3>
                     <p>Price: $1200</p>
                     <p>Bedrooms: 1</p>
                     <p>Bathrooms: 1</p>
                     <p>Zip: 12345</p>
+                    <button class="add-to-favorites" data-id="3" data-name="Apartment 3" data-price="1200" data-bedrooms="1" data-bathrooms="1" data-zipcode="12345">Add to Favorites</button> <!-- Add to Favorites button -->
                 </div>
             </li>
-            <li data-zipcode="67890" data-price="3000" data-bedrooms="4" data-bathrooms="4">
+            <li data-id="4" data-zipcode="67890" data-price="3000" data-bedrooms="4" data-bathrooms="4">
                 <div class="listing">
                     <h3>Apartment 4</h3>
                     <p>Price: $3000</p>
                     <p>Bedrooms: 4</p>
                     <p>Bathrooms: 4</p>
                     <p>Zip: 67890</p>
+                    <button class="add-to-favorites" data-id="4" data-name="Apartment 4" data-price="3000" data-bedrooms="4" data-bathrooms="4" data-zipcode="67890">Add to Favorites</button> <!-- Add to Favorites button -->
                 </div>
             </li>
         </ul>

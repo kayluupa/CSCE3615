@@ -47,3 +47,45 @@ function toggleFilter() {
 
 document.getElementById('filterBtn').addEventListener('click', toggleFilter);
 
+// New Favorites Functionality
+document.addEventListener('DOMContentLoaded', function () {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    // Add to favorites
+    document.querySelectorAll('.add-to-favorites').forEach(button => {
+        button.addEventListener('click', function () {
+            const apartment = {
+                id: this.dataset.id,
+                name: this.dataset.name,
+                price: this.dataset.price,
+                bedrooms: this.dataset.bedrooms,
+                bathrooms: this.dataset.bathrooms,
+                zipcode: this.dataset.zipcode
+            };
+
+            if (!favorites.some(fav => fav.id === apartment.id)) {
+                favorites.push(apartment);
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+                alert('Added to favorites');
+            } else {
+                alert('Already in favorites');
+            }
+        });
+    });
+
+    // Display favorites
+    const favoritesList = document.getElementById('favoritesList');
+    if (favoritesList) {
+        favorites.forEach(apartment => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <h3>${apartment.name}</h3>
+                <p>Price: ${apartment.price}</p>
+                <p>Bedrooms: ${apartment.bedrooms}</p>
+                <p>Bathrooms: ${apartment.bathrooms}</p>
+                <p>Zip: ${apartment.zipcode}</p>
+            `;
+            favoritesList.appendChild(li);
+        });
+    }
+});
