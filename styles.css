@@ -425,44 +425,6 @@ body.register-page {
     opacity: 100%;
 }
 
-/* Register Page -------------------------------------------------------------------------------------------------------------- */
-body.register-page {
-    background-color: #f4f4f4;
-    position: relative;
-}
-
-.register__img--container {
-    position: absolute;
-    left: -190px;
-    top: 200px;
-    width: 50%;
-    height: auto;
-    overflow: hidden;
-    z-index: -1;
-}
-
-.register__img--container img {
-    width: 100%;
-    height: auto;
-    opacity: 100%;
-}
-
-.register2__img--container {
-    position: absolute;
-    right: -190px;
-    top: 200px;
-    width: 50%;
-    height: auto;
-    overflow: hidden;
-    z-index: -1;
-}
-
-.register2__img--container img {
-    width: 100%;
-    height: auto;
-    opacity: 100%;
-}
-
 /* Sienna starts crying around here */
 
 .container {
