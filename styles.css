@@ -503,3 +503,47 @@ body.register-page {
     height: 24px;
 }
 /*for eye icons*/
+
+/* Favorites Page -------------------------------------------------------------------------------------------------------------- */
+body.favorites-page {
+    background-color: #f4f4f4;
+    position: relative;
+}
+
+.favorites-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    margin: 50px auto;
+    position: relative;
+    z-index: 1;
+}
+
+.favorites-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#favoritesList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#favoritesList li {
+    background-color: #e9e9e9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#favoritesList li h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+#favoritesList li p {
+    margin: 5px 0 0;
+}

@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - AptMate</title>
+    <title>Favorites - AptMate</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="login-page">
+<body>
     <nav class="navbar">
         <div class="navbar__container">
             <a href="/" id="navbar__logo">AptMate</a>
@@ -32,32 +32,14 @@
         </div>
     </nav>
 
-    <div class="login__img--container">
-        <img id="login__img" src="images/LoginImage.svg" />
-    </div>
-    <div class="login2__img--container">
-        <img id="login2__img" src="images/LoginImage2.svg" />
+    <!-- Favorites Section -->
+    <div class="favorites-container">
+        <h2>Your Favorites</h2>
+        <ul id="favoritesList">
+            <!-- List of favorite apartments will be displayed here -->
+        </ul>
     </div>
 
-    <!-- Login Section -->
-    <div class="container">
-        <form class="login-form">
-            <h2 class="login-heading">Login</h2> <!-- Added login-heading class -->
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <button type="submit">Submit</button>
-            </div>
-            <div class="form-group register-link-container"> <!-- Added register-link-container class -->
-                <a href="/register.html" class="register-link">Need to register?</a>
-            </div>
-        </form>
-    </div>
+    <script src="app.js"></script>
 </body>
 </html>
