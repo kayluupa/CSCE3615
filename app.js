@@ -47,45 +47,32 @@ function toggleFilter() {
 
 document.getElementById('filterBtn').addEventListener('click', toggleFilter);
 
-// New Favorites Functionality
-document.addEventListener('DOMContentLoaded', function () {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+// for eye icons
+document.addEventListener("DOMContentLoaded", function() {
+    const togglePassword1 = document.getElementById('togglePassword1');
+    const togglePassword2 = document.getElementById('togglePassword2');
 
-    // Add to favorites
-    document.querySelectorAll('.add-to-favorites').forEach(button => {
-        button.addEventListener('click', function () {
-            const apartment = {
-                id: this.dataset.id,
-                name: this.dataset.name,
-                price: this.dataset.price,
-                bedrooms: this.dataset.bedrooms,
-                bathrooms: this.dataset.bathrooms,
-                zipcode: this.dataset.zipcode
-            };
+    if (togglePassword1 && togglePassword2) {
+        togglePassword1.addEventListener('click', function() {
+            console.log("Toggle Password 1 clicked");
+            toggleIcon(this);
+        });
 
-            if (!favorites.some(fav => fav.id === apartment.id)) {
-                favorites.push(apartment);
-                localStorage.setItem('favorites', JSON.stringify(favorites));
-                alert('Added to favorites');
+        togglePassword2.addEventListener('click', function() {
+            console.log("Toggle Password 2 clicked");
+            toggleIcon(this);
+        });
+
+        function toggleIcon(element) {
+            console.log("Toggling icon for element: ", element);
+            if (element.getAttribute('src') === 'images/eyeOpen.svg') {
+                element.setAttribute('src', 'images/eyeClosed.svg');
             } else {
-                alert('Already in favorites');
+                element.setAttribute('src', 'images/eyeOpen.svg');
             }
-        });
-    });
-
-    // Display favorites
-    const favoritesList = document.getElementById('favoritesList');
-    if (favoritesList) {
-        favorites.forEach(apartment => {
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <h3>${apartment.name}</h3>
-                <p>Price: ${apartment.price}</p>
-                <p>Bedrooms: ${apartment.bedrooms}</p>
-                <p>Bathrooms: ${apartment.bathrooms}</p>
-                <p>Zip: ${apartment.zipcode}</p>
-            `;
-            favoritesList.appendChild(li);
-        });
+        }
+    } else {
+        console.error("Toggle Password elements not found");
     }
 });
+// eye icons

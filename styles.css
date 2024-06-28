@@ -512,148 +512,32 @@ body.register-page {
     background-color: #4cae4c;
 }
 
-/* Login Page -------------------------------------------------------------------------------------------------------------- */
-body.login-page {
-    background-color: #f4f4f4;
-    position: relative;
-}
-
-.login__img--container {
-    position: absolute;
-    left: -190px;
-    top: 200px;
-    width: 50%;
-    height: auto;
-    overflow: hidden;
-    z-index: -1;
-}
-
-.login__img--container img {
-    width: 100%;
-    height: auto;
-    opacity: 100%;
-}
-
-.login2__img--container {
-    position: absolute;
-    right: -190px;
-    top: 200px;
-    width: 50%;
-    height: auto;
-    overflow: hidden;
-    z-index: -1;
-}
-
-.login2__img--container img {
-    width: 100%;
-    height: auto;
-    opacity: 100%;
-}
-
-.container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 350px;
-    margin: 50px auto;
-    position: relative;
-    z-index: 1;
+.login-link {
+    display: block;
     text-align: center;
-}
-
-.login-form h2 {
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-.form-group button {
-    width: 100%;
-    padding: 10px;
-    background-color: #8FBC8F;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.form-group button:hover {
-    background-color: #4cae4c;
-}
-
-.register-link {
-    display: block;
     margin-top: 10px;
-    color: #333;
+    color: #8FBC8F;
     text-decoration: none;
 }
 
-.register-link:hover {
+.login-link:hover {
     text-decoration: underline;
 }
 
-.center-text {
-    text-align: center;
+/*for eye icons*/
+.password-container {
+    display: flex;
+    align-items: center;
 }
 
-/* Favorites Page -------------------------------------------------------------------------------------------------------------- */
-body.favorites-page {
-    background-color: #f4f4f4;
-    position: relative;
+.password-container input {
+    flex: 1;
 }
 
-.favorites-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 600px;
-    margin: 50px auto;
-    position: relative;
-    z-index: 1;
+.toggle-password {
+    cursor: pointer;
+    margin-left: 10px;
+    width: 24px;
+    height: 24px;
 }
-
-.favorites-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#favoritesList {
-    list-style-type: none;
-    padding: 0;
-}
-
-#favoritesList li {
-    background-color: #e9e9e9;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-#favoritesList li h3 {
-    margin: 0;
-    font-size: 1.2em;
-}
-
-#favoritesList li p {
-    margin: 5px 0 0;
-}
-
+/*for eye icons*/
