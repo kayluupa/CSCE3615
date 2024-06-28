@@ -486,3 +486,20 @@ body.register-page {
     text-decoration: underline;
 }
 
+/*for eye icons*/
+.password-container {
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    flex: 1;
+}
+
+.toggle-password {
+    cursor: pointer;
+    margin-left: 10px;
+    width: 24px;
+    height: 24px;
+}
+/*for eye icons*/
