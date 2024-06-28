@@ -1,15 +1,10 @@
 // for eye icons
 document.addEventListener("DOMContentLoaded", function() {
-    const togglePassword1 = document.getElementById('togglePassword1');
-    const togglePassword2 = document.getElementById('togglePassword2');
+    const togglePassword = document.getElementById('togglePassword1');
 
-    if (togglePassword1 && togglePassword2) {
-        togglePassword1.addEventListener('click', function() {
+    if (togglePassword) {
+        togglePassword.addEventListener('click', function() {
             togglePasswordVisibility(this, 'password');
-        });
-
-        togglePassword2.addEventListener('click', function() {
-            togglePasswordVisibility(this, 'retype-password');
         });
 
         function togglePasswordVisibility(element, inputId) {
@@ -23,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     } else {
-        console.error("Toggle Password elements not found");
+        console.error("Toggle Password element not found");
     }
 });
-// eye icons
