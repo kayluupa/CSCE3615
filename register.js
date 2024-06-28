@@ -15,15 +15,15 @@ const firebaseConfig = {
   measurementId: "G-HC8Y3HS30S"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-
 //Submit button
 const submitbutton = document.getElementById('submitbutton');
 submitbutton.addEventListener("click", function (event) {
     event.preventDefault();
+
+    // Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
     
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -32,6 +32,7 @@ submitbutton.addEventListener("click", function (event) {
       .then((userCredential) => {
         const user = userCredential.user;
         alert("Account created successfully!");
+        window.location.href = "favorites.html";
       })
       .catch((error) => {
         const errorCode = error.code;
