@@ -1,53 +1,33 @@
+<!-- HTML for the Main home page -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AptMate</title>
+    <link rel = "stylesheet" href = "navbar/navbar.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar__container">
-            <a href="/" id="navbar__logo">AptMate</a>
-            <div class="navbar__toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="navbar__menu">
-                <li class="navbar__item">
-                    <a href="/" class="navbar__links">Home</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="/login.html" class="navbar__links">Login</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="/favorites.html" class="navbar__links">Favorites</a>
-                </li>
-                <li class="navbar__btn">
-                    <a href="/register.html" class="button">Register</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div id="navbar-container"></div>
 
 <!-- Search Engine Section -->
-<div class="main">
-    <div class="main__container">
-        <div class="main__header">
-            <h1>Find the Perfect Apartment</h1>
-            <p>See what makes home, "home".</p>
-        </div>
-        <div class="main__img--container">
-            <img id="main__img" src="images/ApartmentHomePage.svg" />
-            <input type="text" id="zipcode" class="zipcode__input" placeholder="Enter Zipcode">
-            <button class="main__btn"><a href="results.html">Search Apartments</a></button>
+    <div class="main">
+        <div class="main__container">
+            <div class="main__header">
+                <h1>Find the Perfect Apartment</h1>
+                <p>See what makes home, "home".</p>
+            </div>
+            <div class="main__img--container">
+                <img id="main__img" src="images/ApartmentHomePage.svg" />
+                <input type="text" id="zipcode" class="zipcode__input" placeholder="Enter Zipcode">
+                <button class="main__btn"><a href="results.html">Search Apartments</a></button>
+            </div>
         </div>
     </div>
-</div>
 
-    <script src="app.js"></script>
+    <script src="navbar/navbar.js"></script>
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";

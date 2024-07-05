@@ -4,33 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AptMate</title>
+    <link rel = "stylesheet" href = "navbar/navbar.css">
     <link rel="stylesheet" href="register.css">
 </head>
 <body class="register-page">
-    <nav class="navbar">
-        <div class="navbar__container">
-            <a href="/" id="navbar__logo">AptMate</a>
-            <div class="navbar__toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="navbar__menu">
-                <li class="navbar__item">
-                    <a href="/" class="navbar__links">Home</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="/login.html" class="navbar__links">Login</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="/favorites.html" class="navbar__links">Favorites</a>
-                </li>
-                <li class="navbar__btn">
-                    <a href="/register.html" class="button">Register</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div id="navbar-container"></div>
 
     <div class="register__img--container">
         <img id="register__img" src="images/RegisterImage.svg" />
@@ -66,7 +44,7 @@
 
     <script type="module" src="register.js" defer></script>
 
-
+    <script src="navbar/navbar.js?"></script>
     <script src="eyeIcon.js"></script>
 </body>
 </html>
