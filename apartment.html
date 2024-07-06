@@ -1,0 +1,33 @@
+<!-- 
+ This page is for submitting apartment information into the database.
+ It will be used for companies to submit their apartment information.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Web Setup</title>
+</head>
+<body>
+
+  <h1>Firebase Web Setup Example</h1>
+  
+  <form id="authForm">
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="submit" id="submitbutton" value="Create Account">
+  </form>
+  
+  <form id="apartmentForm">
+    <input type="text" id="apartmentId" placeholder="Apartment ID" required>
+    <input type="number" id="bedroom" placeholder="Bedroom" required>
+    <input type="number" id="bathroom" placeholder="Bathroom" required>
+    <input type="number" id="price" placeholder="Price" required>
+    <input type="text" id="zipcode" placeholder="Zip Code" required>
+    <input type="submit" id="saveApartmentButton" value="Save Apartment">
+  </form>
+
+  <!-- Add Firebase products that you want to use -->
+  <script type="module" src="database.js"></script>
+
+</body>
+</html>
