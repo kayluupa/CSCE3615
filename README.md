@@ -7,8 +7,8 @@ AptMate is not currently being hosted. In order to run AptMate you must:
 2. Download Github Extension
 3. Clone repository through VSCode
 4. Download Live Server Extension
-5. Open index.html
-6. Right click on '< html >' and select 'Open with live server'
+5. Right click any html file
+6. Click on "Open with Live Server"
 
 
 # Team / Members
