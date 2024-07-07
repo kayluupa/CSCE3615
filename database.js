@@ -22,13 +22,13 @@ const auth = getAuth(app);
 const database = getDatabase(app);
 
 // Function to write apartment data to the database
-function writeApartmentData(apartmentId, Bedroom, Bathroom, Price, ZipCode) {
+function writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode) {
     const reference = ref(database, 'apartments/' + apartmentId);
     set(reference, {
-        Bedroom: Bedroom,
-        Bathroom: Bathroom,
-        Price: Price,
-        ZipCode: ZipCode
+        Bedroom: bedroom,
+        Bathroom: bathroom,
+        Price: price,
+        ZipCode: zipcode
     })
     .then(() => {
         alert("Data saved successfully!");
@@ -41,6 +41,7 @@ function writeApartmentData(apartmentId, Bedroom, Bathroom, Price, ZipCode) {
 // Event listener for the register submit button
 document.getElementById('authForm').addEventListener("submit", function (event) {
     event.preventDefault();
+    console.log('Auth form submitted');
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -48,12 +49,14 @@ document.getElementById('authForm').addEventListener("submit", function (event) 
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        console.log('User created: ', user);
         alert("Account created successfully!");
         window.location.href = "favorites.html";
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.error('Error during account creation: ', errorMessage);
         alert(errorMessage);
       });
 });
@@ -61,6 +64,7 @@ document.getElementById('authForm').addEventListener("submit", function (event) 
 // Event listener for the save apartment button
 document.getElementById('apartmentForm').addEventListener("submit", function (event) {
     event.preventDefault();
+    console.log('Apartment form submitted');
 
     const apartmentId = document.getElementById('apartmentId').value;
     const bedroom = document.getElementById('bedroom').value;
