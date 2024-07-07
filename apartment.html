@@ -1,33 +1,23 @@
-<!-- 
- This page is for submitting apartment information into the database.
- It will be used for companies to submit their apartment information.
--->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Firebase Web Setup</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apartment Data</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<h1> Apartment Data Submission Form</h1>
 
-  <h1>Firebase Web Setup Example</h1>
-  
-  <form id="authForm">
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <input type="submit" id="submitbutton" value="Create Account">
-  </form>
-  
-  <form id="apartmentForm">
-    <input type="text" id="apartmentId" placeholder="Apartment ID" required>
-    <input type="number" id="bedroom" placeholder="Bedroom" required>
-    <input type="number" id="bathroom" placeholder="Bathroom" required>
-    <input type="number" id="price" placeholder="Price" required>
-    <input type="text" id="zipcode" placeholder="Zip Code" required>
-    <input type="submit" id="saveApartmentButton" value="Save Apartment">
-  </form>
+    <form id="apartmentForm">
+        <input type="text" id="apartmentId" placeholder="Apartment ID" required>
+        <input type="text" id="bedroom" placeholder="Bedroom" required>
+        <input type="text" id="bathroom" placeholder="Bathroom" required>
+        <input type="text" id="price" placeholder="Price" required>
+        <input type="text" id="zipcode" placeholder="Zipcode" required>
+        <button type="submit">Save Apartment</button>
+    </form>
 
-  <!-- Add Firebase products that you want to use -->
-  <script type="module" src="database.js"></script>
-
+    <script type="module" src="database.js" defer></script>
 </body>
 </html>

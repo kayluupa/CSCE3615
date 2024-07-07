@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AptMate</title>
-    <link rel = "stylesheet" href = "navbar/navbar.css">
+    <link rel="stylesheet" href="navbar/navbar.css">
     <link rel="stylesheet" href="register.css">
 </head>
 <body class="register-page">
@@ -17,16 +17,15 @@
         <img id="register2__img" src="images/RegisterImage2.svg" />
     </div>
 
-    <!-- Register Section !!!!  THIS IS WHERE THE EYE ICONS LIVEEEEEE  !!!! -->
     <div class="container">
-        <form class="register-form">
+        <form class="register-form" id="registerForm">
             <h2>Register</h2>
             <div class="form-group">
-                <label for="useremail">Email</label>
+                <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
             </div> 
             <div class="form-group">
-                <label for="userpassword">Password</label>
+                <label for="password">Password</label>
                 <div class="password-container">
                     <input type="password" id="password" name="password" required>
                     <img src="images/eyeClosed.svg" class="toggle-password" id="togglePassword1" alt="Show Password">
@@ -43,8 +42,7 @@
     </div>
 
     <script type="module" src="register.js" defer></script>
-
-    <script src="navbar/navbar.js?"></script>
+    <script src="navbar/navbar.js"></script>
     <script src="eyeIcon.js"></script>
 </body>
 </html>
