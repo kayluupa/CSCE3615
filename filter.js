@@ -12,7 +12,7 @@ function filterResults() {
         var bedrooms = li[i].getAttribute('data-bedrooms');
         var bathrooms = li[i].getAttribute('data-bathrooms');
 
-        var matchesZipcode = zipcode.includes(zipcodeInput) || !zipcodeInput;
+        var matchesZipcode = zipcode === zipcodeInput || !zipcodeInput;
         var matchesPrice = !priceFilter || (priceFilter === "1000" && price < 1000) ||
                            (priceFilter === "2000" && price >= 1000 && price < 2000) ||
                            (priceFilter === "3000" && price >= 2000 && price < 3000) ||

@@ -112,6 +112,14 @@
                     apartmentList.appendChild(listItem);
                 });
             }
+
+            // Filter results based on query parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const zipcode = urlParams.get('zipcode');
+            if (zipcode) {
+                document.getElementById('searchBar').value = zipcode;
+                filterResults();
+            }
         }
 
         // Fetch and display apartments on page load
@@ -121,6 +129,14 @@
         window.viewApartmentDetails = function(apartmentId) {
             window.location.href = `apartment-details.html?id=${apartmentId}`;
         }
+
+        // Add event listener for Enter key press on the search bar
+        document.getElementById('searchBar').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                filterResults();
+            }
+        });
     </script>
     <script src="filter.js"></script> <!-- Include filter.js -->
 </body>
