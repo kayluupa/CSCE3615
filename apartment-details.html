@@ -1,19 +1,12 @@
-<!--
-
-This page is for the apartment details when the user clicks on an apartment in the results page.
-UI needs to be worked on.
-Favorites function needs to be added.
-
--->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apartment Details</title>
+    <title>Apartment Details - AptMate</title>
     <link rel="stylesheet" href="navbar/navbar.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="apartment-details.css">
 </head>
 <body>
     <nav class="navbar">
@@ -43,7 +36,7 @@ Favorites function needs to be added.
 
     <div class="apartment-details-container">
         <h1 id="apartmentTitle">Apartment Details</h1>
-        <div id="apartmentDetails">
+        <div id="apartmentDetails" class="apartment-details">
             <!-- Apartment details will be dynamically inserted here -->
         </div>
     </div>
@@ -86,13 +79,13 @@ Favorites function needs to be added.
             const apartmentDetails = await fetchApartmentDetails(apartmentId);
 
             if (apartmentDetails) {
-                document.getElementById('apartmentTitle').innerText = `Apartment ${apartmentId}`;
+                document.getElementById('apartmentTitle').innerText = `${apartmentId}`;
                 const detailsContainer = document.getElementById('apartmentDetails');
                 detailsContainer.innerHTML = `
-                    <p>Price: $${apartmentDetails.Price}</p>
-                    <p>Bedrooms: ${apartmentDetails.Bedroom}</p>
-                    <p>Bathrooms: ${apartmentDetails.Bathroom}</p>
-                    <p>Zip Code: ${apartmentDetails.ZipCode}</p>
+                    <div class="detail-item"><span class="detail-label">Price:</span> $${apartmentDetails.Price}</div>
+                    <div class="detail-item"><span class="detail-label">Bedrooms:</span> ${apartmentDetails.Bedroom}</div>
+                    <div class="detail-item"><span class="detail-label">Bathrooms:</span> ${apartmentDetails.Bathroom}</div>
+                    <div class="detail-item"><span class="detail-label">Zip Code:</span> ${apartmentDetails.ZipCode}</div>
                 `;
             }
         }
