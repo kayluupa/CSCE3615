@@ -5,6 +5,9 @@ function filterResults() {
     var bathroomsFilter = document.getElementById('bathrooms').value;
     var ul = document.getElementById("apartmentList");
     var li = ul.getElementsByTagName('li');
+    var noResultsMessage = document.getElementById('noResultsMessage');
+
+    let hasResults = false;
 
     for (var i = 0; i < li.length; i++) {
         var zipcode = li[i].getAttribute('data-zipcode');
@@ -22,9 +25,16 @@ function filterResults() {
 
         if (matchesZipcode && matchesPrice && matchesBedrooms && matchesBathrooms) {
             li[i].style.display = "";
+            hasResults = true;
         } else {
             li[i].style.display = "none";
         }
+    }
+
+    if (hasResults) {
+        noResultsMessage.style.display = "none";
+    } else {
+        noResultsMessage.style.display = "block";
     }
 }
 
