@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1> Apartment Data Submission Form</h1>
+    <h1> Apartment Data Submission Form</h1>
 
     <form id="apartmentForm">
         <input type="text" id="apartmentId" placeholder="Apartment ID" required>
@@ -18,6 +18,20 @@
         <button type="submit">Save Apartment</button>
     </form>
 
-    <script type="module" src="database.js" defer></script>
+    <script type="module">
+        import { writeApartmentData } from './database.js';
+
+        document.getElementById('apartmentForm').addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const apartmentId = document.getElementById('apartmentId').value;
+            const bedroom = document.getElementById('bedroom').value;
+            const bathroom = document.getElementById('bathroom').value;
+            const price = document.getElementById('price').value;
+            const zipcode = document.getElementById('zipcode').value;
+
+            writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode);
+        });
+    </script>
 </body>
 </html>
