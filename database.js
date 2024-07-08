@@ -1,4 +1,4 @@
-// Importing Firebase and its services
+// Importing Firebase RealTime Database and its services
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
