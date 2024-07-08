@@ -45,7 +45,7 @@
                 <img src="images/filterResults.svg" alt="Filter Icon" />
             </button>
         </div>
-        <div id="filterOptions" class="filter-options">
+        <div id="filterOptions" class="filter-options" style="display: none;">
             <div class="filter-option">
                 <label for="price">Price:</label>
                 <select id="price" onchange="filterResults()">
@@ -84,6 +84,7 @@
 
     <script type="module">
         import { fetchApartmentData } from './database.js';
+        import './filter.js'; // Ensure this script is included
 
         async function displayApartments() {
             const apartmentList = document.getElementById('apartmentList');
@@ -95,8 +96,12 @@
                 Object.keys(apartments).forEach(key => {
                     const apartment = apartments[key];
                     const listItem = document.createElement('li');
+                    listItem.setAttribute('data-zipcode', apartment.ZipCode);
+                    listItem.setAttribute('data-price', apartment.Price);
+                    listItem.setAttribute('data-bedrooms', apartment.Bedroom);
+                    listItem.setAttribute('data-bathrooms', apartment.Bathroom);
                     listItem.innerHTML = `
-                        <div class="listing">
+                        <div class="listing" onclick="viewApartmentDetails('${key}')">
                             <h3>${key}</h3>
                             <p>Price: $${apartment.Price}</p>
                             <p>Bedrooms: ${apartment.Bedroom}</p>
@@ -111,6 +116,12 @@
 
         // Fetch and display apartments on page load
         window.onload = displayApartments;
+
+        // Function to redirect to the details page
+        window.viewApartmentDetails = function(apartmentId) {
+            window.location.href = `apartment-details.html?id=${apartmentId}`;
+        }
     </script>
+    <script src="filter.js"></script> <!-- Include filter.js -->
 </body>
 </html>

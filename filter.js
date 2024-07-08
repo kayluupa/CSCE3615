@@ -8,7 +8,7 @@ function filterResults() {
 
     for (var i = 0; i < li.length; i++) {
         var zipcode = li[i].getAttribute('data-zipcode');
-        var price = li[i].getAttribute('data-price');
+        var price = parseInt(li[i].getAttribute('data-price')); // Ensure price is an integer
         var bedrooms = li[i].getAttribute('data-bedrooms');
         var bathrooms = li[i].getAttribute('data-bathrooms');
 
