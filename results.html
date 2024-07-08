@@ -79,6 +79,7 @@
         </div>
         <ul id="apartmentList">
         </ul>
+        <p id="noResultsMessage">No results found</p>
     </div>
 
     <script type="module">
@@ -136,6 +137,17 @@
                 filterResults();
             }
         });
+
+        // Add event listener for the filter button
+        document.getElementById('filterBtn').addEventListener('click', function() {
+            var filterOptions = document.getElementById('filterOptions');
+            if (filterOptions.style.display === "none" || filterOptions.style.display === "") {
+                filterOptions.style.display = "flex";
+            } else {
+                filterOptions.style.display = "none";
+            }
+        });
     </script>
     <script src="filter.js"></script>
+</body>
 </html>
