@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apartment Details - AptMate</title>
+    <link rel="stylesheet" href="navbar/navbar.css">
+    <link rel="stylesheet" href="apartment-details.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="/" id="navbar__logo">AptMate</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="/" class="navbar__links">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="/login.html" class="navbar__links">Login</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="/favorites.html" class="navbar__links">Favorites</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="/register.html" class="button">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="apartment-details-container">
+        <h1 id="apartmentTitle">Apartment Details</h1>
+        <div id="apartmentDetails" class="apartment-details">
+            <!-- Apartment details will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script type="module">
+        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDzbLT3EPkXDhmkb8h1vdViuD1-afAuGvo",
+            authDomain: "aptmate-b5eb0.firebaseapp.com",
+            databaseURL: "https://aptmate-b5eb0-default-rtdb.firebaseio.com",
+            projectId: "aptmate-b5eb0",
+            storageBucket: "aptmate-b5eb0.appspot.com",
+            messagingSenderId: "1030969940790",
+            appId: "1:1030969940790:web:6c23201d5c1bc0e4aab197",
+            measurementId: "G-HC8Y3HS30S"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        async function fetchApartmentDetails(apartmentId) {
+            const dbRef = ref(getDatabase());
+            try {
+                const snapshot = await get(child(dbRef, `apartments/${apartmentId}`));
+                if (snapshot.exists()) {
+                    return snapshot.val();
+                } else {
+                    console.log("No data available");
+                }
+            } catch (error) {
+                console.error("Error fetching data: ", error);
+            }
+        }
+
+        async function displayApartmentDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const apartmentId = urlParams.get('id');
+            const apartmentDetails = await fetchApartmentDetails(apartmentId);
+
+            if (apartmentDetails) {
+                document.getElementById('apartmentTitle').innerText = `${apartmentId}`;
+                const detailsContainer = document.getElementById('apartmentDetails');
+                detailsContainer.innerHTML = `
+                    <div class="detail-item"><span class="detail-label">Price:</span> $${apartmentDetails.Price}</div>
+                    <div class="detail-item"><span class="detail-label">Bedrooms:</span> ${apartmentDetails.Bedroom}</div>
+                    <div class="detail-item"><span class="detail-label">Bathrooms:</span> ${apartmentDetails.Bathroom}</div>
+                    <div class="detail-item"><span class="detail-label">Zip Code:</span> ${apartmentDetails.ZipCode}</div>
+                `;
+            }
+        }
+
+        // Fetch and display apartment details on page load
+        window.onload = displayApartmentDetails;
+    </script>
+</body>
+</html>

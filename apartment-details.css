@@ -1,0 +1,45 @@
+/* Apartment details page styles */
+body {
+    font-family: 'Kumb Sans', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.apartment-details-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+h1#apartmentTitle {
+    text-align: center;
+    color: #8FBC8F; 
+    margin-bottom: 20px;
+}
+
+.apartment-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.2em;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #8FBC8F; 
+}
+
+.detail-value {
+    color: #555;
+}

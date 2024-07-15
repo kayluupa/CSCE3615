@@ -6,9 +6,8 @@ Accent - Soft Pink #ea8484
 Background - White #FFF
 Button Color - Green #8FBC8F
 */
-/* Search Engine -------------------------------------------------------------------------------------------------------------- */
 
-/*image for page*/
+/* Search Engine -------------------------------------------------------------------------------------------------------------- */
 .left-fixed-image {
     position: fixed;
     top: 80px;
@@ -185,3 +184,18 @@ Button Color - Green #8FBC8F
     background: #ececec;
 }
 
+
+/* No Results Message */
+#noResultsMessage {
+    display: none;
+    text-align: center;
+    font-size: 1.5em;
+    color: #333;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.search-container {
+    position: relative; /* Ensure parent has a position */
+}

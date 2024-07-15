@@ -1,18 +1,17 @@
 <!-- HTML for the Main home page -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AptMate</title>
-    <link rel = "stylesheet" href = "navbar/navbar.css">
+    <link rel="stylesheet" href="navbar/navbar.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="navbar-container"></div>
 
-<!-- Search Engine Section -->
+    <!-- Search Engine Section -->
     <div class="main">
         <div class="main__container">
             <div class="main__header">
@@ -22,29 +21,17 @@
             <div class="main__img--container">
                 <img id="main__img" src="images/ApartmentHomePage.svg" />
                 <input type="text" id="zipcode" class="zipcode__input" placeholder="Enter Zipcode">
-                <button class="main__btn"><a href="results.html">Search Apartments</a></button>
+                <button class="main__btn" id="searchBtn">Search Apartments</button>
             </div>
         </div>
     </div>
 
     <script src="navbar/navbar.js"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
-
-        const firebaseConfig = {
-          apiKey: "AIzaSyDzbLT3EPkXDhmkb8h1vdViuD1-afAuGvo",
-          authDomain: "aptmate-b5eb0.firebaseapp.com",
-          projectId: "aptmate-b5eb0",
-          storageBucket: "aptmate-b5eb0.appspot.com",
-          messagingSenderId: "1030969940790",
-          appId: "1:1030969940790:web:6d74eaf667634028aab197",
-          measurementId: "G-S1B64G2BXK"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-      </script>
+    <script>
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            const zipcode = document.getElementById('zipcode').value;
+            window.location.href = `results.html?zipcode=${zipcode}`;
+        });
+    </script>
 </body>
 </html>

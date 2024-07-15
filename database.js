@@ -1,6 +1,6 @@
-// Importing Firebase and its services
+// Importing Firebase RealTime Database and its services
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDzbLT3EPkXDhmkb8h1vdViuD1-afAuGvo",
@@ -13,12 +13,11 @@ const firebaseConfig = {
   measurementId: "G-HC8Y3HS30S"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 // Function to write apartment data to the database
-function writeApartmentData(apartmentId, Bedroom, Bathroom, Price, ZipCode) {
+export function writeApartmentData(apartmentId, Bedroom, Bathroom, Price, ZipCode) {
     const reference = ref(database, 'apartments/' + apartmentId);
     set(reference, {
         Bedroom: Bedroom,
@@ -34,15 +33,17 @@ function writeApartmentData(apartmentId, Bedroom, Bathroom, Price, ZipCode) {
     });
 }
 
-// Event listener for the save apartment button
-document.getElementById('apartmentForm').addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const apartmentId = document.getElementById('apartmentId').value;
-    const bedroom = document.getElementById('bedroom').value;
-    const bathroom = document.getElementById('bathroom').value;
-    const price = document.getElementById('price').value;
-    const zipcode = document.getElementById('zipcode').value;
-
-    writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode);
-});
+// Function to fetch apartment data from the database
+export async function fetchApartmentData() {
+    const dbRef = ref(getDatabase());
+    try {
+        const snapshot = await get(child(dbRef, `apartments`));
+        if (snapshot.exists()) {
+            return snapshot.val();
+        } else {
+            console.log("No data available");
+        }
+    } catch (error) {
+        console.error("Error fetching data: ", error);
+    }
+}

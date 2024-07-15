@@ -5,14 +5,17 @@ function filterResults() {
     var bathroomsFilter = document.getElementById('bathrooms').value;
     var ul = document.getElementById("apartmentList");
     var li = ul.getElementsByTagName('li');
+    var noResultsMessage = document.getElementById('noResultsMessage');
+
+    let hasResults = false;
 
     for (var i = 0; i < li.length; i++) {
         var zipcode = li[i].getAttribute('data-zipcode');
-        var price = li[i].getAttribute('data-price');
+        var price = parseInt(li[i].getAttribute('data-price')); // Ensure price is an integer
         var bedrooms = li[i].getAttribute('data-bedrooms');
         var bathrooms = li[i].getAttribute('data-bathrooms');
 
-        var matchesZipcode = zipcode.includes(zipcodeInput) || !zipcodeInput;
+        var matchesZipcode = zipcode === zipcodeInput || !zipcodeInput;
         var matchesPrice = !priceFilter || (priceFilter === "1000" && price < 1000) ||
                            (priceFilter === "2000" && price >= 1000 && price < 2000) ||
                            (priceFilter === "3000" && price >= 2000 && price < 3000) ||
@@ -22,9 +25,16 @@ function filterResults() {
 
         if (matchesZipcode && matchesPrice && matchesBedrooms && matchesBathrooms) {
             li[i].style.display = "";
+            hasResults = true;
         } else {
             li[i].style.display = "none";
         }
+    }
+
+    if (hasResults) {
+        noResultsMessage.style.display = "none";
+    } else {
+        noResultsMessage.style.display = "block";
     }
 }
 
