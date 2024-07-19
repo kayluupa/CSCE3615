@@ -23,6 +23,7 @@ In the future, access to this html will only be allowed to verified apartment or
         <input type="text" id="bathroom" placeholder="Bathroom" required>
         <input type="text" id="price" placeholder="Price" required>
         <input type="text" id="zipcode" placeholder="Zipcode" required>
+        <input type="text" id="amenities" placeholder="Amenities" required>
         <button type="submit">Save Apartment</button>
     </form>
 
@@ -37,8 +38,9 @@ In the future, access to this html will only be allowed to verified apartment or
             const bathroom = document.getElementById('bathroom').value;
             const price = document.getElementById('price').value;
             const zipcode = document.getElementById('zipcode').value;
+            const amenities = document.getElementById('amenities').value;
 
-            writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode);
+            writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode, amenities);
         });
     </script>
 </body>
