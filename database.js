@@ -17,13 +17,14 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 // Function to write apartment data to the database
-export function writeApartmentData(apartmentId, Bedroom, Bathroom, Price, ZipCode) {
+export function writeApartmentData(apartmentId, Bedroom, Bathroom, Price, ZipCode, Amenities) {
     const reference = ref(database, 'apartments/' + apartmentId);
     set(reference, {
         Bedroom: Bedroom,
         Bathroom: Bathroom,
         Price: Price,
-        ZipCode: ZipCode
+        ZipCode: ZipCode,
+        Amenities: Amenities
     })
     .then(() => {
         alert("Data saved successfully!");

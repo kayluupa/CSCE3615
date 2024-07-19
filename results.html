@@ -45,6 +45,7 @@
                 <img src="images/filterResults.svg" alt="Filter Icon" />
             </button>
         </div>
+        <!-- Filter options for Price -->
         <div id="filterOptions" class="filter-options" style="display: none;">
             <div class="filter-option">
                 <label for="price">Price:</label>
@@ -56,6 +57,7 @@
                     <option value="4000">$3000+</option>
                 </select>
             </div>
+            <!-- Filter options for Bedrooms -->
             <div class="filter-option">
                 <label for="bedrooms">Bedrooms:</label>
                 <select id="bedrooms" onchange="filterResults()">
@@ -66,6 +68,7 @@
                     <option value="4">4+ Bedrooms</option>
                 </select>
             </div>
+            <!-- Filter options for Bathrooms -->
             <div class="filter-option">
                 <label for="bathrooms">Bathrooms:</label>
                 <select id="bathrooms" onchange="filterResults()">
@@ -76,6 +79,8 @@
                     <option value="4">4+ Bathrooms</option>
                 </select>
             </div>
+            <!-- Filter options for Amenities -->
+            <!-- Broken into checkboxes so multiple options can be selected -->
             <div class="filter-option" id="amenity-options">
                 <label>Amenities:</label>
                 <div class="checkbox-group">
