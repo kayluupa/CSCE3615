@@ -45,6 +45,7 @@
                 <img src="images/filterResults.svg" alt="Filter Icon" />
             </button>
         </div>
+        <!-- Filter options for Price -->
         <div id="filterOptions" class="filter-options" style="display: none;">
             <div class="filter-option">
                 <label for="price">Price:</label>
@@ -56,6 +57,7 @@
                     <option value="4000">$3000+</option>
                 </select>
             </div>
+            <!-- Filter options for Bedrooms -->
             <div class="filter-option">
                 <label for="bedrooms">Bedrooms:</label>
                 <select id="bedrooms" onchange="filterResults()">
@@ -66,6 +68,7 @@
                     <option value="4">4+ Bedrooms</option>
                 </select>
             </div>
+            <!-- Filter options for Bathrooms -->
             <div class="filter-option">
                 <label for="bathrooms">Bathrooms:</label>
                 <select id="bathrooms" onchange="filterResults()">
@@ -76,6 +79,47 @@
                     <option value="4">4+ Bathrooms</option>
                 </select>
             </div>
+            <!-- Filter options for Amenities -->
+            <!-- Broken into checkboxes so multiple options can be selected -->
+            <div class="filter-option" id="amenity-options">
+                <label>Amenities:</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="highSpeedInternet" name="amenities" value="High-speed Internet">
+                    <label for="highSpeedInternet">High-speed Internet</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="clubhouse" name="amenities" value="Clubhouse">
+                    <label for="clubhouse">Clubhouse</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="pool" name="amenities" value="Pool">
+                    <label for="pool">Pool</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="parkingGarage" name="amenities" value="Parking Garage">
+                    <label for="parkingGarage">Parking Garage</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newAppliances" name="amenities" value="New Appliances">
+                    <label for="newAppliances">New Appliances</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="gym" name="amenities" value="Gym">
+                    <label for="gym">Gym</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="petAmenities" name="amenities" value="Pet Amenities">
+                    <label for="petAmenities">Pet Amenities</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="inUnitLaundry" name="amenities" value="In-Unit Laundry">
+                    <label for="inUnitLaundry">In-Unit Laundry</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="washerDryerHookups" name="amenities" value="Washer/Dryer Hookups">
+                    <label for="washerDryerHookups">Washer/Dryer Hookups</label>
+                </div>
+            </div>            
         </div>
         <ul id="apartmentList">
         </ul>
@@ -100,6 +144,7 @@
                     listItem.setAttribute('data-price', apartment.Price);
                     listItem.setAttribute('data-bedrooms', apartment.Bedroom);
                     listItem.setAttribute('data-bathrooms', apartment.Bathroom);
+                    listItem.setAttribute('data-amenities', apartment.Amenities);
                     listItem.innerHTML = `
                         <div class="listing" onclick="viewApartmentDetails('${key}')">
                             <h3>${key}</h3>
@@ -107,6 +152,7 @@
                             <p>Bedrooms: ${apartment.Bedroom}</p>
                             <p>Bathrooms: ${apartment.Bathroom}</p>
                             <p>Zip: ${apartment.ZipCode}</p>
+                            <p>Amenities: ${apartment.Amenities}</p>
                         </div>
                     `;
                     apartmentList.appendChild(listItem);

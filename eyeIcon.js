@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const togglePassword = document.getElementById('togglePassword1');
 
+    //If statement uses an event listener to toggle between visible and non-visible text based on if the eye is clicked
     if (togglePassword) {
         togglePassword.addEventListener('click', function() {
             togglePasswordVisibility(this, 'password');
