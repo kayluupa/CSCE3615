@@ -33,8 +33,6 @@
         </div>
     </nav>
 
-    <!-- took out svg image here -->
-
     <!-- Search Page Section -->
     <div class="search-container">
         <div class="search-header">
@@ -126,7 +124,8 @@
 
     <script type="module">
         import { fetchApartmentData } from './database.js';
-        import './filter.js'; // Ensure this script is included
+        import './filter.js'; 
+        import { toggleHeart } from './hearticon.js';
 
         async function displayApartments() {
             const apartmentList = document.getElementById('apartmentList');
@@ -145,6 +144,9 @@
                     listItem.setAttribute('data-amenities', apartment.Amenities);
                     listItem.innerHTML = `
                         <div class="listing" onclick="viewApartmentDetails('${key}')">
+                            <div class="heart-icon" onclick="event.stopPropagation(); toggleHeart(this);">
+                                <img src="images/heart-icon.svg" alt="Heart Icon">
+                            </div>
                             <h3>${key}</h3>
                             <p>Price: $${apartment.Price}</p>
                             <p>Bedrooms: ${apartment.Bedroom}</p>
