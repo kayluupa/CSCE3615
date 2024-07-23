@@ -127,6 +127,8 @@
         import './filter.js'; 
         import { toggleHeart } from './hearticon.js';
 
+        window.toggleHeart = toggleHeart;
+
         async function displayApartments() {
             const apartmentList = document.getElementById('apartmentList');
             const apartments = await fetchApartmentData();
