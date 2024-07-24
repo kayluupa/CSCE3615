@@ -1,5 +1,3 @@
-
-<!-- This html file is for displaying the details and images of the selected apartment listing once it has been selected from the results page. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,47 +38,22 @@
         <div id="apartmentDetails" class="apartment-details">
             <!-- Apartment details will be dynamically inserted here -->
         </div>
+        <div id="apartmentPhotos" class="apartment-photos">
+            <!-- Apartment photos will be dynamically inserted here -->
+        </div>
     </div>
 
     <script type="module">
-        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDzbLT3EPkXDhmkb8h1vdViuD1-afAuGvo",
-            authDomain: "aptmate-b5eb0.firebaseapp.com",
-            databaseURL: "https://aptmate-b5eb0-default-rtdb.firebaseio.com",
-            projectId: "aptmate-b5eb0",
-            storageBucket: "aptmate-b5eb0.appspot.com",
-            messagingSenderId: "1030969940790",
-            appId: "1:1030969940790:web:6c23201d5c1bc0e4aab197",
-            measurementId: "G-HC8Y3HS30S"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        async function fetchApartmentDetails(apartmentId) {
-            const dbRef = ref(getDatabase());
-            try {
-                const snapshot = await get(child(dbRef, `apartments/${apartmentId}`));
-                if (snapshot.exists()) {
-                    return snapshot.val();
-                } else {
-                    console.log("No data available");
-                }
-            } catch (error) {
-                console.error("Error fetching data: ", error);
-            }
-        }
-
+        import { fetchApartmentData } from './database.js';
+    
         async function displayApartmentDetails() {
             const urlParams = new URLSearchParams(window.location.search);
             const apartmentId = urlParams.get('id');
-            const apartmentDetails = await fetchApartmentDetails(apartmentId);
-
+            console.log(`Apartment ID from URL: ${apartmentId}`); // Added debug log
+            const apartmentDetails = await fetchApartmentData(apartmentId);
+    
             if (apartmentDetails) {
-                document.getElementById('apartmentTitle').innerText = `${apartmentId}`;
+                document.getElementById('apartmentTitle').innerText = `Apartment ID: ${apartmentId}`;
                 const detailsContainer = document.getElementById('apartmentDetails');
                 detailsContainer.innerHTML = `
                     <div class="detail-item"><span class="detail-label">Price:</span> $${apartmentDetails.Price}</div>
@@ -89,10 +62,22 @@
                     <div class="detail-item"><span class="detail-label">Zip Code:</span> ${apartmentDetails.ZipCode}</div>
                     <div class="detail-item"><span class="detail-label">Amenities:</span> ${apartmentDetails.Amenities}</div>
                 `;
+    
+                const photosContainer = document.getElementById('apartmentPhotos');
+                if (apartmentDetails.Photos) {
+                    apartmentDetails.Photos.forEach(photoUrl => {
+                        const img = document.createElement('img');
+                        img.src = photoUrl;
+                        img.alt = "Apartment Photo";
+                        img.className = "apartment-photo";
+                        photosContainer.appendChild(img);
+                    });
+                }
+            } else {
+                console.log('No apartment details found.');
             }
         }
-
-        // Fetch and display apartment details on page load
+    
         window.onload = displayApartmentDetails;
     </script>
 </body>

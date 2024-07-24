@@ -37,7 +37,6 @@
         <img src="images/undrawLocation.svg" alt="Fixed Image" />
     </div>
 
-    <!-- Search Page Section -->
     <div class="search-container">
         <div class="search-header">
             <input type="text" id="searchBar" class="search-input" placeholder="Enter Zip Code">
@@ -45,7 +44,7 @@
                 <img src="images/filterResults.svg" alt="Filter Icon" />
             </button>
         </div>
-        <!-- Filter options for Price -->
+
         <div id="filterOptions" class="filter-options" style="display: none;">
             <div class="filter-option">
                 <label for="price">Price:</label>
@@ -57,7 +56,6 @@
                     <option value="4000">$3000+</option>
                 </select>
             </div>
-            <!-- Filter options for Bedrooms -->
             <div class="filter-option">
                 <label for="bedrooms">Bedrooms:</label>
                 <select id="bedrooms" onchange="filterResults()">
@@ -68,7 +66,6 @@
                     <option value="4">4+ Bedrooms</option>
                 </select>
             </div>
-            <!-- Filter options for Bathrooms -->
             <div class="filter-option">
                 <label for="bathrooms">Bathrooms:</label>
                 <select id="bathrooms" onchange="filterResults()">
@@ -79,8 +76,6 @@
                     <option value="4">4+ Bathrooms</option>
                 </select>
             </div>
-            <!-- Filter options for Amenities -->
-            <!-- Broken into checkboxes so multiple options can be selected -->
             <div class="filter-option" id="amenity-options">
                 <label>Amenities:</label>
                 <div class="checkbox-group">
@@ -123,60 +118,63 @@
         </div>
         <ul id="apartmentList">
         </ul>
-        <p id="noResultsMessage">No results found</p>
+        <p id="noResultsMessage" style="display:none;">No results found</p>
     </div>
 
     <script type="module">
         import { fetchApartmentData } from './database.js';
-        import './filter.js'; // Ensure this script is included
 
         async function displayApartments() {
             const apartmentList = document.getElementById('apartmentList');
+            const noResultsMessage = document.getElementById('noResultsMessage');
             const apartments = await fetchApartmentData();
 
             apartmentList.innerHTML = ''; // Clear existing content
 
             if (apartments) {
-                Object.keys(apartments).forEach(key => {
-                    const apartment = apartments[key];
-                    const listItem = document.createElement('li');
-                    listItem.setAttribute('data-zipcode', apartment.ZipCode);
-                    listItem.setAttribute('data-price', apartment.Price);
-                    listItem.setAttribute('data-bedrooms', apartment.Bedroom);
-                    listItem.setAttribute('data-bathrooms', apartment.Bathroom);
-                    listItem.setAttribute('data-amenities', apartment.Amenities);
-                    listItem.innerHTML = `
-                        <div class="listing" onclick="viewApartmentDetails('${key}')">
-                            <h3>${key}</h3>
-                            <p>Price: $${apartment.Price}</p>
-                            <p>Bedrooms: ${apartment.Bedroom}</p>
-                            <p>Bathrooms: ${apartment.Bathroom}</p>
-                            <p>Zip: ${apartment.ZipCode}</p>
-                            <p>Amenities: ${apartment.Amenities}</p>
-                        </div>
-                    `;
-                    apartmentList.appendChild(listItem);
-                });
-            }
+                const urlParams = new URLSearchParams(window.location.search);
+                const zipcode = urlParams.get('zipcode');
 
-            // Filter results based on query parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const zipcode = urlParams.get('zipcode');
-            if (zipcode) {
-                document.getElementById('searchBar').value = zipcode;
-                filterResults();
+                let filteredApartments = Object.keys(apartments).map(key => ({ id: key, ...apartments[key] }));
+
+                if (zipcode) {
+                    filteredApartments = filteredApartments.filter(apartment => apartment.ZipCode === zipcode);
+                }
+
+                if (filteredApartments.length > 0) {
+                    filteredApartments.forEach(apartment => {
+                        const listItem = document.createElement('li');
+                        listItem.setAttribute('data-zipcode', apartment.ZipCode);
+                        listItem.setAttribute('data-price', apartment.Price);
+                        listItem.setAttribute('data-bedrooms', apartment.Bedroom);
+                        listItem.setAttribute('data-bathrooms', apartment.Bathroom);
+                        listItem.setAttribute('data-amenities', apartment.Amenities);
+
+                        listItem.innerHTML = `
+                            <div class="listing" onclick="viewApartmentDetails('${apartment.id}')">
+                                <h3>${apartment.id}</h3>
+                                <p>Price: $${apartment.Price}</p>
+                                <p>Bedrooms: ${apartment.Bedroom}</p>
+                                <p>Bathrooms: ${apartment.Bathroom}</p>
+                                <p>Zip: ${apartment.ZipCode}</p>
+                                <p>Amenities: ${apartment.Amenities}</p>
+                            </div>
+                        `;
+                        apartmentList.appendChild(listItem);
+                    });
+                    noResultsMessage.style.display = 'none';
+                } else {
+                    noResultsMessage.style.display = 'block';
+                }
             }
         }
 
-        // Fetch and display apartments on page load
         window.onload = displayApartments;
 
-        // Function to redirect to the details page
         window.viewApartmentDetails = function(apartmentId) {
             window.location.href = `apartment-details.html?id=${apartmentId}`;
         }
 
-        // Add event listener for Enter key press on the search bar
         document.getElementById('searchBar').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
@@ -184,7 +182,6 @@
             }
         });
 
-        // Add event listener for the filter button
         document.getElementById('filterBtn').addEventListener('click', function() {
             var filterOptions = document.getElementById('filterOptions');
             if (filterOptions.style.display === "none" || filterOptions.style.display === "") {
@@ -193,7 +190,41 @@
                 filterOptions.style.display = "none";
             }
         });
+
+        function filterResults() {
+            const searchBar = document.getElementById('searchBar').value;
+            const priceFilter = document.getElementById('price').value;
+            const bedroomsFilter = document.getElementById('bedrooms').value;
+            const bathroomsFilter = document.getElementById('bathrooms').value;
+            const amenitiesFilter = Array.from(document.querySelectorAll('input[name="amenities"]:checked')).map(el => el.value);
+
+            console.log('Filter criteria:');
+            console.log('Zipcode:', searchBar);
+            console.log('Price:', priceFilter);
+            console.log('Bedrooms:', bedroomsFilter);
+            console.log('Bathrooms:', bathroomsFilter);
+            console.log('Selected Amenities:', amenitiesFilter);
+
+            const apartments = Array.from(document.querySelectorAll('#apartmentList li'));
+
+            apartments.forEach(apartment => {
+                const matchesZipcode = searchBar === "" || apartment.getAttribute('data-zipcode') === searchBar;
+                const matchesPrice = priceFilter === "" || apartment.getAttribute('data-price') <= priceFilter;
+                const matchesBedrooms = bedroomsFilter === "" || apartment.getAttribute('data-bedrooms') === bedroomsFilter;
+                const matchesBathrooms = bathroomsFilter === "" || apartment.getAttribute('data-bathrooms') === bathroomsFilter;
+                const matchesAmenities = amenitiesFilter.length === 0 || amenitiesFilter.every(amenity => apartment.getAttribute('data-amenities').includes(amenity));
+
+                if (matchesZipcode && matchesPrice && matchesBedrooms && matchesBathrooms && matchesAmenities) {
+                    apartment.style.display = 'block';
+                } else {
+                    apartment.style.display = 'none';
+                }
+            });
+
+            const visibleApartments = apartments.filter(apartment => apartment.style.display === 'block');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            noResultsMessage.style.display = visibleApartments.length === 0 ? 'block' : 'none';
+        }
     </script>
-    <script src="filter.js"></script>
 </body>
 </html>
