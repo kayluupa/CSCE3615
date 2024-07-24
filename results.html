@@ -33,10 +33,6 @@
         </div>
     </nav>
 
-    <div class="left-fixed-image">
-        <img src="images/undrawLocation.svg" alt="Fixed Image" />
-    </div>
-
     <div class="search-container">
         <div class="search-header">
             <input type="text" id="searchBar" class="search-input" placeholder="Enter Zip Code">
@@ -123,6 +119,10 @@
 
     <script type="module">
         import { fetchApartmentData } from './database.js';
+        import './filter.js'; 
+        import { toggleHeart } from './hearticon.js';
+
+        window.toggleHeart = toggleHeart;
 
         async function displayApartments() {
             const apartmentList = document.getElementById('apartmentList');
@@ -152,6 +152,9 @@
 
                         listItem.innerHTML = `
                             <div class="listing" onclick="viewApartmentDetails('${apartment.id}')">
+                                <div class="heart-icon" onclick="event.stopPropagation(); toggleHeart(this);">
+                                    <img src="images/heart-icon.svg" alt="Heart Icon">
+                                </div>
                                 <h3>${apartment.id}</h3>
                                 <p>Price: $${apartment.Price}</p>
                                 <p>Bedrooms: ${apartment.Bedroom}</p>

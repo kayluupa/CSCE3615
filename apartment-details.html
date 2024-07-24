@@ -55,12 +55,15 @@
             if (apartmentDetails) {
                 document.getElementById('apartmentTitle').innerText = `Apartment ID: ${apartmentId}`;
                 const detailsContainer = document.getElementById('apartmentDetails');
+                const amenities = Array.isArray(apartmentDetails.Amenities)
+                    ? apartmentDetails.Amenities.join(', ')
+                    : apartmentDetails.Amenities;
                 detailsContainer.innerHTML = `
                     <div class="detail-item"><span class="detail-label">Price:</span> $${apartmentDetails.Price}</div>
                     <div class="detail-item"><span class="detail-label">Bedrooms:</span> ${apartmentDetails.Bedroom}</div>
                     <div class="detail-item"><span class="detail-label">Bathrooms:</span> ${apartmentDetails.Bathroom}</div>
                     <div class="detail-item"><span class="detail-label">Zip Code:</span> ${apartmentDetails.ZipCode}</div>
-                    <div class="detail-item"><span class="detail-label">Amenities:</span> ${apartmentDetails.Amenities}</div>
+                    <div class="detail-item"><span class="detail-label">Amenities:</span> ${amenities}</div>
                 `;
     
                 const photosContainer = document.getElementById('apartmentPhotos');

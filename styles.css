@@ -110,13 +110,12 @@ Button Color - Green #8FBC8F
     transition: background-color 0.3s ease;
 }
 
-/* AHHHH KAYLA PANIC ZONE */
-
 /* Search Page -------------------------------------------------------------------------------------------------------------- */
 .search-container {
     background-color: #fff;
     padding: 20px;
-    margin-left: 120px; /* Adjust margin to accommodate the fixed image */
+    margin-left: 120px; 
+    margin-right: 120px;
 }
 
 .search-header {
@@ -166,7 +165,9 @@ Button Color - Green #8FBC8F
     background: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #8FBC8F; /* Added border, 7-23-24 */
 }
+
 
 #apartmentList .listing {
     padding: 15px;
@@ -199,3 +200,22 @@ Button Color - Green #8FBC8F
 .search-container {
     position: relative; /* Ensure parent has a position */
 }
+
+/* heart icon */
+.heart-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.heart-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.listing {
+    position: relative; /* Ensure the heart icon is positioned relative to this container */
+    padding: 15px;
+}
+/* heart icon end */
