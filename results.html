@@ -129,6 +129,8 @@
             const noResultsMessage = document.getElementById('noResultsMessage');
             const apartments = await fetchApartmentData();
 
+            console.log('Fetched Apartments:', apartments); // Debugging statement
+
             apartmentList.innerHTML = ''; // Clear existing content
 
             if (apartments) {
@@ -169,6 +171,8 @@
                 } else {
                     noResultsMessage.style.display = 'block';
                 }
+            } else {
+                noResultsMessage.style.display = 'block';
             }
         }
 
@@ -182,15 +186,6 @@
             if (event.key === 'Enter') {
                 event.preventDefault();
                 filterResults();
-            }
-        });
-
-        document.getElementById('filterBtn').addEventListener('click', function() {
-            var filterOptions = document.getElementById('filterOptions');
-            if (filterOptions.style.display === "none" || filterOptions.style.display === "") {
-                filterOptions.style.display = "flex";
-            } else {
-                filterOptions.style.display = "none";
             }
         });
 
