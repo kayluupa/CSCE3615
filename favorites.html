@@ -18,6 +18,38 @@
         </ul>
     </div>
 
+    <script type="module">
+        import { initializeFavorites } from './hearticon.js';
+        import { fetchApartmentData } from './database.js';
+
+        async function displayFavorites() {
+            const favoritesList = document.getElementById('favoritesList');
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const apartments = await fetchApartmentData();
+
+            favoritesList.innerHTML = ''; // Clear existing content
+
+            favorites.forEach(id => {
+                const apartment = apartments[id];
+                if (apartment) {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <div class="listing" data-id="${id}">
+                            <h3>${id}</h3>
+                            <p>Price: $${apartment.Price}</p>
+                            <p>Bedrooms: ${apartment.Bedroom}</p>
+                            <p>Bathrooms: ${apartment.Bathroom}</p>
+                            <p>Zip: ${apartment.ZipCode}</p>
+                            <p>Amenities: ${apartment.Amenities}</p>
+                        </div>
+                    `;
+                    favoritesList.appendChild(listItem);
+                }
+            });
+        }
+
+        window.onload = displayFavorites;
+    </script>
     <script type="module" src="navbar/navbar.js"></script>
 </body>
 </html>

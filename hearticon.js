@@ -5,8 +5,10 @@ export function toggleHeart(element) {
 
     const listingItem = element.closest('.listing');
     const id = listingItem.getAttribute('data-id');
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    console.log('Toggling favorite for listing ID:', id);
 
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    
     if (element.classList.contains('liked')) {
         // If liked, remove the liked class and from favorites
         element.classList.remove('liked');
@@ -21,6 +23,7 @@ export function toggleHeart(element) {
 
     // Save updated favorites to localStorage
     localStorage.setItem('favorites', JSON.stringify(favorites));
+    console.log('Favorites updated:', favorites);
 }
 
 // Initialize liked state from localStorage

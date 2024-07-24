@@ -102,7 +102,7 @@
     <script type="module">
         import { fetchApartmentData } from './database.js';
         import './filter.js'; 
-        import { toggleHeart } from './hearticon.js';
+        import { toggleHeart, initializeFavorites } from './hearticon.js';
 
         window.toggleHeart = toggleHeart;
 
@@ -116,17 +116,18 @@
                 Object.keys(apartments).forEach(key => {
                     const apartment = apartments[key];
                     const listItem = document.createElement('li');
+                    listItem.setAttribute('data-id', key); 
                     listItem.setAttribute('data-zipcode', apartment.ZipCode);
                     listItem.setAttribute('data-price', apartment.Price);
                     listItem.setAttribute('data-bedrooms', apartment.Bedroom);
                     listItem.setAttribute('data-bathrooms', apartment.Bathroom);
                     listItem.setAttribute('data-amenities', apartment.Amenities);
                     listItem.innerHTML = `
-                        <div class="listing" onclick="viewApartmentDetails('${key}')">
+                        <div class="listing" data-id="${key}" onclick="viewApartmentDetails('${key}')">
                             <div class="heart-icon" onclick="event.stopPropagation(); toggleHeart(this);">
                                 <img src="images/heart-icon.svg" alt="Heart Icon">
                             </div>
-                            <h3>${key}</h3>
+                            <h3>${key}</h3> <!-- This line now displays the name of the apartment -->
                             <p>Price: $${apartment.Price}</p>
                             <p>Bedrooms: ${apartment.Bedroom}</p>
                             <p>Bathrooms: ${apartment.Bathroom}</p>
@@ -148,7 +149,10 @@
         }
 
         // Fetch and display apartments on page load
-        window.onload = displayApartments;
+        window.onload = async function() {
+            await displayApartments();
+            initializeFavorites(); // Ensure this function is called to set the liked state from localStorage
+        };
 
         // Function to redirect to the details page
         window.viewApartmentDetails = function(apartmentId) {
