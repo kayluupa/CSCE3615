@@ -12,9 +12,12 @@ In the future, access to this html will only be allowed to verified apartment or
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apartment Data</title>
+    <link rel="stylesheet" href="navbar/navbar.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="navbar-container"></div>
+
     <h1> Apartment Data Submission Form</h1>
 
     <form id="apartmentForm">
@@ -43,5 +46,6 @@ In the future, access to this html will only be allowed to verified apartment or
             writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode, amenities);
         });
     </script>
+    <script type="module" src="navbar/navbar.js"></script>
 </body>
 </html>
