@@ -30,7 +30,7 @@
             const apartmentDetails = await fetchApartmentData(apartmentId);
     
             if (apartmentDetails) {
-                document.getElementById('apartmentTitle').innerText = `Apartment ID: ${apartmentId}`;
+                document.getElementById('apartmentTitle').innerText = `${apartmentId}`;
                 const detailsContainer = document.getElementById('apartmentDetails');
                 const amenities = Array.isArray(apartmentDetails.Amenities)
                     ? apartmentDetails.Amenities.join(', ')
