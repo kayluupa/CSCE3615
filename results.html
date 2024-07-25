@@ -6,6 +6,16 @@
     <title>Search Apartments</title>
     <link rel="stylesheet" href="navbar/navbar.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .filter-buttons button {
+            flex: 1;
+        }
+    </style>
 </head>
 <body>
     <div id="navbar-container"></div>
@@ -87,7 +97,10 @@
                     <label for="washerDryerHookups">Washer/Dryer Hookups</label>
                 </div>
             </div>
-            <button id="applyFilterBtn">Apply Filters</button> <!-- New button to apply filters -->
+            <div class="filter-buttons">
+                <button id="applyFilterBtn">Apply Filters</button>
+                <button id="clearFilterBtn">Clear Filters</button>
+            </div>
         </div>
         <ul id="apartmentList">
         </ul>
@@ -204,6 +217,18 @@
             const noResultsMessage = document.getElementById('noResultsMessage');
             noResultsMessage.style.display = visibleApartments.length === 0 ? 'block' : 'none';
         }
+
+        function clearFilters() {
+            document.getElementById('searchBar').value = '';
+            document.getElementById('price').value = '';
+            document.getElementById('bedrooms').value = '';
+            document.getElementById('bathrooms').value = '';
+            document.querySelectorAll('input[name="amenities"]:checked').forEach(cb => cb.checked = false);
+            filterResults();
+        }
+
+        document.getElementById('clearFilterBtn').addEventListener('click', clearFilters);
+
     </script>
     <script type="module" src="navbar/navbar.js"></script>
 </body>

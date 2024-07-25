@@ -73,9 +73,19 @@ function filterResults() {
 //Listeners to update the filterResults() function when the new filter button is clicked
 document.getElementById('filterBtn').addEventListener('click', toggleFilter);
 document.getElementById('applyFilterBtn').addEventListener('click', filterResults);
+document.getElementById('clearFilterBtn').addEventListener('click', clearFilters);
 document.getElementById('searchBar').addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
         filterResults();
     }
 });
+
+function clearFilters() {
+    document.getElementById('searchBar').value = '';
+    document.getElementById('price').value = '';
+    document.getElementById('bedrooms').value = '';
+    document.getElementById('bathrooms').value = '';
+    document.querySelectorAll('input[name="amenities"]:checked').forEach(cb => cb.checked = false);
+    filterResults();
+}
