@@ -121,6 +121,7 @@
 
                 if (filteredApartments.length > 0) {
                     filteredApartments.forEach(apartment => {
+                        console.log('Apartment ID:', apartment.id); // Debugging statement
                         const listItem = document.createElement('li');
                         listItem.setAttribute('data-zipcode', apartment.ZipCode);
                         listItem.setAttribute('data-price', apartment.Price);
@@ -129,7 +130,7 @@
                         listItem.setAttribute('data-amenities', apartment.Amenities);
 
                         listItem.innerHTML = `
-                            <div class="listing" onclick="viewApartmentDetails('${apartment.id}')">
+                            <div class="listing" data-id="${apartment.id}" onclick="viewApartmentDetails('${apartment.id}')">
                                 <div class="heart-icon" onclick="event.stopPropagation(); toggleHeart(this);">
                                     <img src="images/heart-icon.svg" alt="Heart Icon">
                                 </div>

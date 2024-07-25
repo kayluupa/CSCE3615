@@ -31,25 +31,26 @@
             favoritesList.innerHTML = ''; // Clear existing content
 
             favorites.forEach(id => {
-                const apartment = apartments[id];
-                if (apartment) {
-                    const listItem = document.createElement('li');
-                    listItem.innerHTML = `
-                        <div class="listing" data-id="${id}">
-                            <div class="heart-icon" onclick="event.stopPropagation(); toggleHeart(this);">
-                                <img src="images/heart-icon.svg" alt="Heart Icon">
-                            </div>
-                            <h3>${id}</h3>
-                            <p>Price: $${apartment.Price}</p>
-                            <p>Bedrooms: ${apartment.Bedroom}</p>
-                            <p>Bathrooms: ${apartment.Bathroom}</p>
-                            <p>Zip: ${apartment.ZipCode}</p>
-                            <p>Amenities: ${apartment.Amenities}</p>
+            const apartment = apartments[id];
+            if (apartment) {
+                console.log('Favorite Apartment ID:', id); // Debugging statement
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <div class="listing" data-id="${id}">
+                        <div class="heart-icon" onclick="event.stopPropagation(); toggleHeart(this);">
+                            <img src="images/heart-icon.svg" alt="Heart Icon">
                         </div>
-                    `;
-                    favoritesList.appendChild(listItem);
-                }
-            });
+                        <h3>${id}</h3>
+                        <p>Price: $${apartment.Price}</p>
+                        <p>Bedrooms: ${apartment.Bedroom}</p>
+                        <p>Bathrooms: ${apartment.Bathroom}</p>
+                        <p>Zip: ${apartment.ZipCode}</p>
+                        <p>Amenities: ${apartment.Amenities}</p>
+                    </div>
+                `;
+                favoritesList.appendChild(listItem);
+            }
+        });
 
             initializeFavorites();
         }
