@@ -8,31 +8,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar__container">
-            <a href="/" id="navbar__logo">AptMate</a>
-            <div class="navbar__toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="navbar__menu">
-                <li class="navbar__item">
-                    <a href="/" class="navbar__links">Home</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="/login.html" class="navbar__links">Login</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="/favorites.html" class="navbar__links">Favorites</a>
-                </li>
-                <li class="navbar__btn">
-                    <a href="/register.html" class="button">Register</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
+    <div id="navbar-container"></div>
     <div class="search-container">
         <div class="search-header">
             <input type="text" id="searchBar" class="search-input" placeholder="Enter Zip Code">
@@ -140,11 +116,14 @@
                 let filteredApartments = Object.keys(apartments).map(key => ({ id: key, ...apartments[key] }));
 
                 if (zipcode) {
-                    filteredApartments = filteredApartments.filter(apartment => apartment.ZipCode === zipcode);
+
+                    filteredApartments = filteredApartments.filter(apartment => apartment.ZipCode === zipcode.trim());
+
                 }
 
                 if (filteredApartments.length > 0) {
                     filteredApartments.forEach(apartment => {
+                        console.log('Apartment ID:', apartment.id); // Debugging statement
                         const listItem = document.createElement('li');
                         listItem.setAttribute('data-zipcode', apartment.ZipCode);
                         listItem.setAttribute('data-price', apartment.Price);
@@ -153,7 +132,7 @@
                         listItem.setAttribute('data-amenities', apartment.Amenities);
 
                         listItem.innerHTML = `
-                            <div class="listing" onclick="viewApartmentDetails('${apartment.id}')">
+                            <div class="listing" data-id="${apartment.id}" onclick="viewApartmentDetails('${apartment.id}')">
                                 <div class="heart-icon" onclick="event.stopPropagation(); toggleHeart(this);">
                                     <img src="images/heart-icon.svg" alt="Heart Icon">
                                 </div>
@@ -176,7 +155,10 @@
             }
         }
 
-        window.onload = displayApartments;
+        window.onload = async function() {
+            await displayApartments();
+            filterResults(); // Ensure filtering is applied after loading apartments
+        };
 
         window.viewApartmentDetails = function(apartmentId) {
             window.location.href = `apartment-details.html?id=${apartmentId}`;
@@ -190,7 +172,7 @@
         });
 
         function filterResults() {
-            const searchBar = document.getElementById('searchBar').value;
+            const searchBar = document.getElementById('searchBar').value.trim();
             const priceFilter = document.getElementById('price').value;
             const bedroomsFilter = document.getElementById('bedrooms').value;
             const bathroomsFilter = document.getElementById('bathrooms').value;
@@ -206,8 +188,8 @@
             const apartments = Array.from(document.querySelectorAll('#apartmentList li'));
 
             apartments.forEach(apartment => {
-                const matchesZipcode = searchBar === "" || apartment.getAttribute('data-zipcode') === searchBar;
-                const matchesPrice = priceFilter === "" || apartment.getAttribute('data-price') <= priceFilter;
+                const matchesZipcode = searchBar === "" || apartment.getAttribute('data-zipcode').trim() === searchBar;
+                const matchesPrice = priceFilter === "" || parseInt(apartment.getAttribute('data-price'), 10) <= parseInt(priceFilter, 10);
                 const matchesBedrooms = bedroomsFilter === "" || apartment.getAttribute('data-bedrooms') === bedroomsFilter;
                 const matchesBathrooms = bathroomsFilter === "" || apartment.getAttribute('data-bathrooms') === bathroomsFilter;
                 const matchesAmenities = amenitiesFilter.length === 0 || amenitiesFilter.every(amenity => apartment.getAttribute('data-amenities').includes(amenity));
@@ -224,5 +206,6 @@
             noResultsMessage.style.display = visibleApartments.length === 0 ? 'block' : 'none';
         }
     </script>
+    <script type="module" src="navbar/navbar.js"></script>
 </body>
 </html>
