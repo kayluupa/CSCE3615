@@ -8,31 +8,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar__container">
-            <a href="/" id="navbar__logo">AptMate</a>
-            <div class="navbar__toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="navbar__menu">
-                <li class="navbar__item">
-                    <a href="/" class="navbar__links">Home</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="/login.html" class="navbar__links">Login</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="/favorites.html" class="navbar__links">Favorites</a>
-                </li>
-                <li class="navbar__btn">
-                    <a href="/register.html" class="button">Register</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
+    <div id="navbar-container"></div>
     <div class="search-container">
         <div class="search-header">
             <input type="text" id="searchBar" class="search-input" placeholder="Enter Zip Code">
@@ -227,5 +203,6 @@
             noResultsMessage.style.display = visibleApartments.length === 0 ? 'block' : 'none';
         }
     </script>
+    <script type="module" src="navbar/navbar.js"></script>
 </body>
 </html>
