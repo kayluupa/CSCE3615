@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - AptMate</title>
-    <link rel = "stylesheet" href = "navbar/navbar.css">
+    <link rel="stylesheet" href="navbar/navbar.css">
     <link rel="stylesheet" href="login.css">
 </head>
 <body class="login-page">
@@ -12,11 +12,11 @@
 
     <!-- Login Section -->
     <div class="container">
-        <form class="login-form">
-            <h2 class="login-heading">Login</h2> <!-- Added login-heading class -->
+        <form class="login-form" id="loginForm">
+            <h2 class="login-heading">Login</h2>
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
@@ -25,12 +25,49 @@
             <div class="form-group">
                 <button type="submit">Submit</button>
             </div>
-            <div class="form-group register-link-container"> <!-- Added register-link-container class -->
+            <div class="form-group register-link-container">
                 <a href="/register.html" class="register-link">Need to register?</a>
             </div>
         </form>
     </div>
 
-    <script src="navbar/navbar.js"></script>
+    <script type="module">
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDzbLT3EPkXDhmkb8h1vdViuD1-afAuGvo",
+            authDomain: "aptmate-b5eb0.firebaseapp.com",
+            databaseURL: "https://aptmate-b5eb0-default-rtdb.firebaseio.com",
+            projectId: "aptmate-b5eb0",
+            storageBucket: "aptmate-b5eb0.appspot.com",
+            messagingSenderId: "1030969940790",
+            appId: "1:1030969940790:web:6c23201d5c1bc0e4aab197",
+            measurementId: "G-HC8Y3HS30S"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                console.log('Logged in as:', user.email);
+                window.location.href = '/'; // Redirect to home page after successful login
+            } catch (error) {
+                console.error('Error logging in:', error.message);
+                const loginError = document.createElement('div');
+                loginError.style.color = 'red';
+                loginError.innerText = `Error: ${error.message}`;
+                document.getElementById('loginForm').appendChild(loginError);
+            }
+        });
+    </script>
+    <script type="module" src="navbar/navbar.js"></script>
 </body>
 </html>
