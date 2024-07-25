@@ -6,6 +6,16 @@
     <title>Search Apartments</title>
     <link rel="stylesheet" href="navbar/navbar.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .filter-buttons button {
+            flex: 1;
+        }
+    </style>
 </head>
 <body>
     <div id="navbar-container"></div>
@@ -20,7 +30,7 @@
         <div id="filterOptions" class="filter-options" style="display: none;">
             <div class="filter-option">
                 <label for="price">Price:</label>
-                <select id="price" onchange="filterResults()">
+                <select id="price">
                     <option value="">Any</option>
                     <option value="1000">Under $1000</option>
                     <option value="2000">$1000 - $2000</option>
@@ -30,7 +40,7 @@
             </div>
             <div class="filter-option">
                 <label for="bedrooms">Bedrooms:</label>
-                <select id="bedrooms" onchange="filterResults()">
+                <select id="bedrooms">
                     <option value="">Any</option>
                     <option value="1">1 Bedroom</option>
                     <option value="2">2 Bedrooms</option>
@@ -40,7 +50,7 @@
             </div>
             <div class="filter-option">
                 <label for="bathrooms">Bathrooms:</label>
-                <select id="bathrooms" onchange="filterResults()">
+                <select id="bathrooms">
                     <option value="">Any</option>
                     <option value="1">1 Bathroom</option>
                     <option value="2">2 Bathrooms</option>
@@ -86,7 +96,11 @@
                     <input type="checkbox" id="washerDryerHookups" name="amenities" value="Washer/Dryer Hookups">
                     <label for="washerDryerHookups">Washer/Dryer Hookups</label>
                 </div>
-            </div>            
+            </div>
+            <div class="filter-buttons">
+                <button id="applyFilterBtn">Apply Filters</button>
+                <button id="clearFilterBtn">Clear Filters</button>
+            </div>
         </div>
         <ul id="apartmentList">
         </ul>
@@ -116,9 +130,7 @@
                 let filteredApartments = Object.keys(apartments).map(key => ({ id: key, ...apartments[key] }));
 
                 if (zipcode) {
-
                     filteredApartments = filteredApartments.filter(apartment => apartment.ZipCode === zipcode.trim());
-
                 }
 
                 if (filteredApartments.length > 0) {
@@ -205,6 +217,18 @@
             const noResultsMessage = document.getElementById('noResultsMessage');
             noResultsMessage.style.display = visibleApartments.length === 0 ? 'block' : 'none';
         }
+
+        function clearFilters() {
+            document.getElementById('searchBar').value = '';
+            document.getElementById('price').value = '';
+            document.getElementById('bedrooms').value = '';
+            document.getElementById('bathrooms').value = '';
+            document.querySelectorAll('input[name="amenities"]:checked').forEach(cb => cb.checked = false);
+            filterResults();
+        }
+
+        document.getElementById('clearFilterBtn').addEventListener('click', clearFilters);
+
     </script>
     <script type="module" src="navbar/navbar.js"></script>
 </body>
