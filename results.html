@@ -116,7 +116,9 @@
                 let filteredApartments = Object.keys(apartments).map(key => ({ id: key, ...apartments[key] }));
 
                 if (zipcode) {
+
                     filteredApartments = filteredApartments.filter(apartment => apartment.ZipCode === zipcode.trim());
+
                 }
 
                 if (filteredApartments.length > 0) {

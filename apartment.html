@@ -1,11 +1,3 @@
-<!--
-
-This html is used for organizations to submit apartment data.
-The UI needs to be worked on, even though the submission form will not be available to the general public.
-In the future, access to this html will only be allowed to verified apartment organizations.
-
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,9 +9,7 @@ In the future, access to this html will only be allowed to verified apartment or
 </head>
 <body>
     <div id="navbar-container"></div>
-
     <h1> Apartment Data Submission Form</h1>
-
     <form id="apartmentForm">
         <input type="text" id="apartmentId" placeholder="Apartment ID" required>
         <input type="text" id="bedroom" placeholder="Bedroom" required>
@@ -27,23 +17,36 @@ In the future, access to this html will only be allowed to verified apartment or
         <input type="text" id="price" placeholder="Price" required>
         <input type="text" id="zipcode" placeholder="Zipcode" required>
         <input type="text" id="amenities" placeholder="Amenities" required>
+        <input type="file" id="photos" multiple accept="image/jpeg, image/png" required>
         <button type="submit">Save Apartment</button>
     </form>
 
     <script type="module">
-        import { writeApartmentData } from './database.js';
-
-        document.getElementById('apartmentForm').addEventListener("submit", function(event) {
+        import { writeApartmentData, uploadPhotos } from './database.js';
+    
+        document.getElementById('apartmentForm').addEventListener("submit", async function(event) {
             event.preventDefault();
-
+            console.log('Form submitted');
+    
             const apartmentId = document.getElementById('apartmentId').value;
             const bedroom = document.getElementById('bedroom').value;
             const bathroom = document.getElementById('bathroom').value;
             const price = document.getElementById('price').value;
             const zipcode = document.getElementById('zipcode').value;
             const amenities = document.getElementById('amenities').value;
-
-            writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode, amenities);
+            const photos = document.getElementById('photos').files;
+    
+            console.log('Form data:', { apartmentId, bedroom, bathroom, price, zipcode, amenities, photos });
+    
+            try {
+                const photoUrls = await uploadPhotos(apartmentId, photos);
+                console.log('Photo URLs:', photoUrls);
+    
+                await writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode, amenities, photoUrls);
+                console.log('Apartment data saved successfully');
+            } catch (error) {
+                console.error('Error uploading photos or writing data:', error);
+            }
         });
     </script>
     <script type="module" src="navbar/navbar.js"></script>
