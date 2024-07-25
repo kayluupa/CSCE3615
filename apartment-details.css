@@ -47,9 +47,36 @@ h1#apartmentTitle {
 /* Photo gallery styles */
 .apartment-photos {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     gap: 10px;
     margin-top: 20px;
+    justify-content: center;
+    position: relative;
+}
+
+.carousel-button {
+    background-color: rgba(143, 188, 143, 0.5);
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+}
+
+#prevPhoto {
+    left: 10px;
+}
+
+#nextPhoto {
+    right: 10px;
+}
+
+.photo-container {
+    max-width: 100%;
+    display: flex;
     justify-content: center;
 }
 
@@ -58,4 +85,5 @@ h1#apartmentTitle {
     height: auto;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
 }
