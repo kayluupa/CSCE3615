@@ -16,6 +16,7 @@
         <input type="text" id="bathroom" placeholder="Bathroom" required>
         <input type="text" id="price" placeholder="Price" required>
         <input type="text" id="zipcode" placeholder="Zipcode" required>
+        <input type="text" id="website" placeholder="Website" required>
 
         <div class="amenities">
             <label>Amenities:</label>
@@ -76,14 +77,15 @@
             const amenities = Array.from(document.querySelectorAll('input[name="amenities"]:checked'))
                                   .map(checkbox => checkbox.value);
             const photos = document.getElementById('photos').files;
+            const website = document.getElementById('website').value;
 
-            console.log('Form data:', { apartmentId, bedroom, bathroom, price, zipcode, amenities, photos });
+            console.log('Form data:', { apartmentId, bedroom, bathroom, price, zipcode, amenities, photos, website });
 
             try {
                 const photoUrls = await uploadPhotos(apartmentId, photos);
                 console.log('Photo URLs:', photoUrls);
 
-                await writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode, amenities.join(', '), photoUrls);
+                await writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode, amenities.join(', '), photoUrls, website);
                 console.log('Apartment data saved successfully');
             } catch (error) {
                 console.error('Error uploading photos or writing data:', error);

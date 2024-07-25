@@ -17,7 +17,7 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const storage = getStorage(app);
 
-export function writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode, amenities, photos) {
+export function writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode, amenities, photos, website) {
     const reference = ref(database, 'apartments/' + apartmentId);
     set(reference, {
         Bedroom: bedroom,
@@ -25,7 +25,8 @@ export function writeApartmentData(apartmentId, bedroom, bathroom, price, zipcod
         Price: price,
         ZipCode: zipcode,
         Amenities: amenities,
-        Photos: photos // Ensure this line correctly saves the photo URLs
+        Photos: photos, // Ensure this line correctly saves the photo URLs
+        Website: website
     })
     .then(() => {
         console.log("Data saved successfully!");
