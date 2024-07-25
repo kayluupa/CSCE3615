@@ -12,11 +12,15 @@
 
     <div class="apartment-details-container">
         <h1 id="apartmentTitle">Apartment Details</h1>
+        <div id="apartmentPhotos" class="apartment-photos">
+            <button id="prevPhoto" class="carousel-button">❮</button>
+            <div id="photoContainer" class="photo-container">
+                <!-- Apartment photos will be dynamically inserted here -->
+            </div>
+            <button id="nextPhoto" class="carousel-button">❯</button>
+        </div>
         <div id="apartmentDetails" class="apartment-details">
             <!-- Apartment details will be dynamically inserted here -->
-        </div>
-        <div id="apartmentPhotos" class="apartment-photos">
-            <!-- Apartment photos will be dynamically inserted here -->
         </div>
     </div>
 
@@ -31,6 +35,37 @@
     
             if (apartmentDetails) {
                 document.getElementById('apartmentTitle').innerText = `${apartmentId}`;
+                
+                const photoContainer = document.getElementById('photoContainer');
+                const photos = apartmentDetails.Photos || [];
+                photos.forEach((photoUrl, index) => {
+                    const img = document.createElement('img');
+                    img.src = photoUrl;
+                    img.alt = `Apartment Photo ${index + 1}`;
+                    img.className = "apartment-photo";
+                    img.style.display = index === 0 ? 'block' : 'none'; // Show only the first photo initially
+                    photoContainer.appendChild(img);
+                });
+
+                let currentIndex = 0;
+                const totalPhotos = photos.length;
+
+                document.getElementById('prevPhoto').addEventListener('click', () => {
+                    if (totalPhotos > 1) {
+                        photoContainer.children[currentIndex].style.display = 'none';
+                        currentIndex = (currentIndex - 1 + totalPhotos) % totalPhotos;
+                        photoContainer.children[currentIndex].style.display = 'block';
+                    }
+                });
+
+                document.getElementById('nextPhoto').addEventListener('click', () => {
+                    if (totalPhotos > 1) {
+                        photoContainer.children[currentIndex].style.display = 'none';
+                        currentIndex = (currentIndex + 1) % totalPhotos;
+                        photoContainer.children[currentIndex].style.display = 'block';
+                    }
+                });
+    
                 const detailsContainer = document.getElementById('apartmentDetails');
                 const amenities = Array.isArray(apartmentDetails.Amenities)
                     ? apartmentDetails.Amenities.join(', ')
@@ -42,17 +77,6 @@
                     <div class="detail-item"><span class="detail-label">Zip Code:</span> ${apartmentDetails.ZipCode}</div>
                     <div class="detail-item"><span class="detail-label">Amenities:</span> ${amenities}</div>
                 `;
-    
-                const photosContainer = document.getElementById('apartmentPhotos');
-                if (apartmentDetails.Photos) {
-                    apartmentDetails.Photos.forEach(photoUrl => {
-                        const img = document.createElement('img');
-                        img.src = photoUrl;
-                        img.alt = "Apartment Photo";
-                        img.className = "apartment-photo";
-                        photosContainer.appendChild(img);
-                    });
-                }
             } else {
                 console.log('No apartment details found.');
             }
