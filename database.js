@@ -39,7 +39,10 @@ export function writeApartmentData(apartmentId, bedroom, bathroom, price, zipcod
 
 
 export async function uploadPhotos(apartmentId, files) {
-    const uploadPromises = Array.from(files).map(async (file, index) => {
+    const maxPhotos = 10;
+    const limitedFiles = Array.from(files).slice(0, maxPhotos); // Limit to 10 files
+
+    const uploadPromises = limitedFiles.map(async (file, index) => {
         const storageReference = storageRef(storage, `apartments/${apartmentId}/${file.name}`);
         await uploadBytes(storageReference, file);
         return await getDownloadURL(storageReference);
@@ -52,6 +55,7 @@ export async function uploadPhotos(apartmentId, files) {
         throw error;
     }
 }
+
 
 export async function fetchApartmentData(apartmentId = null) {
     const dbRef = ref(database);
