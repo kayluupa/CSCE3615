@@ -1,47 +1,97 @@
-<!--
-
-This html is used for organizations to submit apartment data.
-The UI needs to be worked on, even though the submission form will not be available to the general public.
-In the future, access to this html will only be allowed to verified apartment organizations.
-
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apartment Data</title>
+    <link rel="stylesheet" href="navbar/navbar.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1> Apartment Data Submission Form</h1>
-
+    <div id="navbar-container"></div>
+    <h1>Apartment Data Submission Form</h1>
     <form id="apartmentForm">
         <input type="text" id="apartmentId" placeholder="Apartment ID" required>
         <input type="text" id="bedroom" placeholder="Bedroom" required>
         <input type="text" id="bathroom" placeholder="Bathroom" required>
         <input type="text" id="price" placeholder="Price" required>
         <input type="text" id="zipcode" placeholder="Zipcode" required>
-        <input type="text" id="amenities" placeholder="Amenities" required>
+        <input type="text" id="website" placeholder="Website" required>
+
+        <div class="amenities">
+            <label>Amenities:</label>
+            <div class="checkbox-group">
+                <input type="checkbox" id="highSpeedInternet" name="amenities" value="High-speed Internet">
+                <label for="highSpeedInternet">High-speed Internet</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="clubhouse" name="amenities" value="Clubhouse">
+                <label for="clubhouse">Clubhouse</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="pool" name="amenities" value="Pool">
+                <label for="pool">Pool</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="parkingGarage" name="amenities" value="Parking Garage">
+                <label for="parkingGarage">Parking Garage</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="newAppliances" name="amenities" value="New Appliances">
+                <label for="newAppliances">New Appliances</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="gym" name="amenities" value="Gym">
+                <label for="gym">Gym</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="petAmenities" name="amenities" value="Pet Amenities">
+                <label for="petAmenities">Pet Amenities</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="inUnitLaundry" name="amenities" value="In-Unit Laundry">
+                <label for="inUnitLaundry">In-Unit Laundry</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="washerDryerHookups" name="amenities" value="Washer/Dryer Hookups">
+                <label for="washerDryerHookups">Washer/Dryer Hookups</label>
+            </div>
+        </div>
+
+        <input type="file" id="photos" multiple accept="image/jpeg, image/png" required>
         <button type="submit">Save Apartment</button>
     </form>
 
     <script type="module">
-        import { writeApartmentData } from './database.js';
+        import { writeApartmentData, uploadPhotos } from './database.js';
 
-        document.getElementById('apartmentForm').addEventListener("submit", function(event) {
+        document.getElementById('apartmentForm').addEventListener("submit", async function(event) {
             event.preventDefault();
+            console.log('Form submitted');
 
             const apartmentId = document.getElementById('apartmentId').value;
             const bedroom = document.getElementById('bedroom').value;
             const bathroom = document.getElementById('bathroom').value;
             const price = document.getElementById('price').value;
             const zipcode = document.getElementById('zipcode').value;
-            const amenities = document.getElementById('amenities').value;
+            const amenities = Array.from(document.querySelectorAll('input[name="amenities"]:checked'))
+                                  .map(checkbox => checkbox.value);
+            const photos = document.getElementById('photos').files;
+            const website = document.getElementById('website').value;
 
-            writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode, amenities);
+            console.log('Form data:', { apartmentId, bedroom, bathroom, price, zipcode, amenities, photos, website });
+
+            try {
+                const photoUrls = await uploadPhotos(apartmentId, photos);
+                console.log('Photo URLs:', photoUrls);
+
+                await writeApartmentData(apartmentId, bedroom, bathroom, price, zipcode, amenities.join(', '), photoUrls, website);
+                console.log('Apartment data saved successfully');
+            } catch (error) {
+                console.error('Error uploading photos or writing data:', error);
+            }
         });
     </script>
+    <script type="module" src="navbar/navbar.js"></script>
 </body>
 </html>

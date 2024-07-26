@@ -6,38 +6,19 @@
     <title>Search Apartments</title>
     <link rel="stylesheet" href="navbar/navbar.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .filter-buttons button {
+            flex: 1;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar__container">
-            <a href="/" id="navbar__logo">AptMate</a>
-            <div class="navbar__toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="navbar__menu">
-                <li class="navbar__item">
-                    <a href="/" class="navbar__links">Home</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="/login.html" class="navbar__links">Login</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="/favorites.html" class="navbar__links">Favorites</a>
-                </li>
-                <li class="navbar__btn">
-                    <a href="/register.html" class="button">Register</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="left-fixed-image">
-        <img src="images/undrawLocation.svg" alt="Fixed Image" />
-    </div>
-
-    <!-- Search Page Section -->
+    <div id="navbar-container"></div>
     <div class="search-container">
         <div class="search-header">
             <input type="text" id="searchBar" class="search-input" placeholder="Enter Zip Code">
@@ -45,11 +26,11 @@
                 <img src="images/filterResults.svg" alt="Filter Icon" />
             </button>
         </div>
-        <!-- Filter options for Price -->
+
         <div id="filterOptions" class="filter-options" style="display: none;">
             <div class="filter-option">
                 <label for="price">Price:</label>
-                <select id="price" onchange="filterResults()">
+                <select id="price">
                     <option value="">Any</option>
                     <option value="1000">Under $1000</option>
                     <option value="2000">$1000 - $2000</option>
@@ -57,10 +38,9 @@
                     <option value="4000">$3000+</option>
                 </select>
             </div>
-            <!-- Filter options for Bedrooms -->
             <div class="filter-option">
                 <label for="bedrooms">Bedrooms:</label>
-                <select id="bedrooms" onchange="filterResults()">
+                <select id="bedrooms">
                     <option value="">Any</option>
                     <option value="1">1 Bedroom</option>
                     <option value="2">2 Bedrooms</option>
@@ -68,10 +48,9 @@
                     <option value="4">4+ Bedrooms</option>
                 </select>
             </div>
-            <!-- Filter options for Bathrooms -->
             <div class="filter-option">
                 <label for="bathrooms">Bathrooms:</label>
-                <select id="bathrooms" onchange="filterResults()">
+                <select id="bathrooms">
                     <option value="">Any</option>
                     <option value="1">1 Bathroom</option>
                     <option value="2">2 Bathrooms</option>
@@ -79,8 +58,6 @@
                     <option value="4">4+ Bathrooms</option>
                 </select>
             </div>
-            <!-- Filter options for Amenities -->
-            <!-- Broken into checkboxes so multiple options can be selected -->
             <div class="filter-option" id="amenity-options">
                 <label>Amenities:</label>
                 <div class="checkbox-group">
@@ -119,64 +96,86 @@
                     <input type="checkbox" id="washerDryerHookups" name="amenities" value="Washer/Dryer Hookups">
                     <label for="washerDryerHookups">Washer/Dryer Hookups</label>
                 </div>
-            </div>            
+            </div>
+            <div class="filter-buttons">
+                <button id="applyFilterBtn">Apply Filters</button>
+                <button id="clearFilterBtn">Clear Filters</button>
+            </div>
         </div>
         <ul id="apartmentList">
         </ul>
-        <p id="noResultsMessage">No results found</p>
+        <p id="noResultsMessage" style="display:none;">No results found</p>
     </div>
 
     <script type="module">
         import { fetchApartmentData } from './database.js';
-        import './filter.js'; // Ensure this script is included
+        import './filter.js'; 
+        import { toggleHeart } from './hearticon.js';
+
+        window.toggleHeart = toggleHeart;
 
         async function displayApartments() {
             const apartmentList = document.getElementById('apartmentList');
+            const noResultsMessage = document.getElementById('noResultsMessage');
             const apartments = await fetchApartmentData();
+
+            console.log('Fetched Apartments:', apartments); // Debugging statement
 
             apartmentList.innerHTML = ''; // Clear existing content
 
             if (apartments) {
-                Object.keys(apartments).forEach(key => {
-                    const apartment = apartments[key];
-                    const listItem = document.createElement('li');
-                    listItem.setAttribute('data-zipcode', apartment.ZipCode);
-                    listItem.setAttribute('data-price', apartment.Price);
-                    listItem.setAttribute('data-bedrooms', apartment.Bedroom);
-                    listItem.setAttribute('data-bathrooms', apartment.Bathroom);
-                    listItem.setAttribute('data-amenities', apartment.Amenities);
-                    listItem.innerHTML = `
-                        <div class="listing" onclick="viewApartmentDetails('${key}')">
-                            <h3>${key}</h3>
-                            <p>Price: $${apartment.Price}</p>
-                            <p>Bedrooms: ${apartment.Bedroom}</p>
-                            <p>Bathrooms: ${apartment.Bathroom}</p>
-                            <p>Zip: ${apartment.ZipCode}</p>
-                            <p>Amenities: ${apartment.Amenities}</p>
-                        </div>
-                    `;
-                    apartmentList.appendChild(listItem);
-                });
-            }
+                const urlParams = new URLSearchParams(window.location.search);
+                const zipcode = urlParams.get('zipcode');
 
-            // Filter results based on query parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const zipcode = urlParams.get('zipcode');
-            if (zipcode) {
-                document.getElementById('searchBar').value = zipcode;
-                filterResults();
+                let filteredApartments = Object.keys(apartments).map(key => ({ id: key, ...apartments[key] }));
+
+                if (zipcode) {
+                    filteredApartments = filteredApartments.filter(apartment => apartment.ZipCode === zipcode.trim());
+                }
+
+                if (filteredApartments.length > 0) {
+                    filteredApartments.forEach(apartment => {
+                        console.log('Apartment ID:', apartment.id); // Debugging statement
+                        const listItem = document.createElement('li');
+                        listItem.setAttribute('data-zipcode', apartment.ZipCode);
+                        listItem.setAttribute('data-price', apartment.Price);
+                        listItem.setAttribute('data-bedrooms', apartment.Bedroom);
+                        listItem.setAttribute('data-bathrooms', apartment.Bathroom);
+                        listItem.setAttribute('data-amenities', apartment.Amenities);
+
+                        listItem.innerHTML = `
+                            <div class="listing" data-id="${apartment.id}" onclick="viewApartmentDetails('${apartment.id}')">
+                                <div class="heart-icon" onclick="event.stopPropagation(); toggleHeart(this);">
+                                    <img src="images/heart-icon.svg" alt="Heart Icon">
+                                </div>
+                                <h3>${apartment.id}</h3>
+                                <p>Price: $${apartment.Price}</p>
+                                <p>Bedrooms: ${apartment.Bedroom}</p>
+                                <p>Bathrooms: ${apartment.Bathroom}</p>
+                                <p>Zip: ${apartment.ZipCode}</p>
+                                <p>Amenities: ${apartment.Amenities}</p>
+                            </div>
+                        `;
+                        apartmentList.appendChild(listItem);
+                    });
+                    noResultsMessage.style.display = 'none';
+                } else {
+                    noResultsMessage.style.display = 'block';
+                }
+            } else {
+                noResultsMessage.style.display = 'block';
             }
         }
 
-        // Fetch and display apartments on page load
-        window.onload = displayApartments;
+        window.onload = async function() {
+            await displayApartments();
+            filterResults(); // Ensure filtering is applied after loading apartments
+        };
 
-        // Function to redirect to the details page
         window.viewApartmentDetails = function(apartmentId) {
             window.location.href = `apartment-details.html?id=${apartmentId}`;
         }
 
-        // Add event listener for Enter key press on the search bar
         document.getElementById('searchBar').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
@@ -184,16 +183,53 @@
             }
         });
 
-        // Add event listener for the filter button
-        document.getElementById('filterBtn').addEventListener('click', function() {
-            var filterOptions = document.getElementById('filterOptions');
-            if (filterOptions.style.display === "none" || filterOptions.style.display === "") {
-                filterOptions.style.display = "flex";
-            } else {
-                filterOptions.style.display = "none";
-            }
-        });
+        function filterResults() {
+            const searchBar = document.getElementById('searchBar').value.trim();
+            const priceFilter = document.getElementById('price').value;
+            const bedroomsFilter = document.getElementById('bedrooms').value;
+            const bathroomsFilter = document.getElementById('bathrooms').value;
+            const amenitiesFilter = Array.from(document.querySelectorAll('input[name="amenities"]:checked')).map(el => el.value);
+
+            console.log('Filter criteria:');
+            console.log('Zipcode:', searchBar);
+            console.log('Price:', priceFilter);
+            console.log('Bedrooms:', bedroomsFilter);
+            console.log('Bathrooms:', bathroomsFilter);
+            console.log('Selected Amenities:', amenitiesFilter);
+
+            const apartments = Array.from(document.querySelectorAll('#apartmentList li'));
+
+            apartments.forEach(apartment => {
+                const matchesZipcode = searchBar === "" || apartment.getAttribute('data-zipcode').trim() === searchBar;
+                const matchesPrice = priceFilter === "" || parseInt(apartment.getAttribute('data-price'), 10) <= parseInt(priceFilter, 10);
+                const matchesBedrooms = bedroomsFilter === "" || apartment.getAttribute('data-bedrooms') === bedroomsFilter;
+                const matchesBathrooms = bathroomsFilter === "" || apartment.getAttribute('data-bathrooms') === bathroomsFilter;
+                const matchesAmenities = amenitiesFilter.length === 0 || amenitiesFilter.every(amenity => apartment.getAttribute('data-amenities').includes(amenity));
+
+                if (matchesZipcode && matchesPrice && matchesBedrooms && matchesBathrooms && matchesAmenities) {
+                    apartment.style.display = 'block';
+                } else {
+                    apartment.style.display = 'none';
+                }
+            });
+
+            const visibleApartments = apartments.filter(apartment => apartment.style.display === 'block');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            noResultsMessage.style.display = visibleApartments.length === 0 ? 'block' : 'none';
+        }
+
+        function clearFilters() {
+            document.getElementById('searchBar').value = '';
+            document.getElementById('price').value = '';
+            document.getElementById('bedrooms').value = '';
+            document.getElementById('bathrooms').value = '';
+            document.querySelectorAll('input[name="amenities"]:checked').forEach(cb => cb.checked = false);
+            filterResults();
+        }
+
+        document.getElementById('clearFilterBtn').addEventListener('click', clearFilters);
+
     </script>
-    <script src="filter.js"></script>
+    <script type="module" src="navbar/navbar.js"></script>
 </body>
 </html>

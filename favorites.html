@@ -6,6 +6,7 @@
     <title>Favorites - AptMate</title>
     <link rel="stylesheet" href="navbar/navbar.css">
     <link rel="stylesheet" href="favorites.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="navbar-container"></div>
@@ -18,6 +19,48 @@
         </ul>
     </div>
 
-    <script src="navbar/navbar.js"></script>
+    <script type="module">
+        import { initializeFavorites, toggleHeart } from './hearticon.js';
+        import { fetchApartmentData } from './database.js';
+
+        async function displayFavorites() {
+            const favoritesList = document.getElementById('favoritesList');
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const apartments = await fetchApartmentData();
+
+            favoritesList.innerHTML = ''; // Clear existing content
+
+            favorites.forEach(id => {
+                const apartment = apartments[id];
+                if (apartment) {
+                    console.log('Favorite Apartment ID:', id); // Debugging statement
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <div class="listing" data-id="${id}">
+                            <div class="heart-icon" onclick="event.stopPropagation(); toggleHeart(this);">
+                                <img src="images/heart-icon.svg" alt="Heart Icon">
+                            </div>
+                            <h3>${id}</h3>
+                            <p>Price: $${apartment.Price}</p>
+                            <p>Bedrooms: ${apartment.Bedroom}</p>
+                            <p>Bathrooms: ${apartment.Bathroom}</p>
+                            <p>Zip: ${apartment.ZipCode}</p>
+                            <p>Amenities: ${apartment.Amenities}</p>
+                        </div>
+                    `;
+                    listItem.querySelector('.listing').addEventListener('click', () => {   //For favorites page to display full listing
+                        window.location.href = `apartment-details.html?id=${id}`;
+                    });
+                    favoritesList.appendChild(listItem);
+                }
+            });
+
+            initializeFavorites();
+        }
+
+        window.onload = displayFavorites;
+        window.toggleHeart = toggleHeart;
+    </script>
+    <script type="module" src="navbar/navbar.js"></script>
 </body>
 </html>

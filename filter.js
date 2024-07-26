@@ -70,16 +70,22 @@ function filterResults() {
     }
 }
 
-//Listeners to update the filterResults() function every time a filter is clicked 
-//or the search bar is updated with "Enter"
-//Also calls the filterResults() function whenever a checkbox is changed off/on
+//Listeners to update the filterResults() function when the new filter button is clicked
 document.getElementById('filterBtn').addEventListener('click', toggleFilter);
+document.getElementById('applyFilterBtn').addEventListener('click', filterResults);
+document.getElementById('clearFilterBtn').addEventListener('click', clearFilters);
 document.getElementById('searchBar').addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
         filterResults();
     }
 });
-document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-    cb.addEventListener('change', filterResults);
-});
+
+function clearFilters() {
+    document.getElementById('searchBar').value = '';
+    document.getElementById('price').value = '';
+    document.getElementById('bedrooms').value = '';
+    document.getElementById('bathrooms').value = '';
+    document.querySelectorAll('input[name="amenities"]:checked').forEach(cb => cb.checked = false);
+    filterResults();
+}

@@ -1,5 +1,3 @@
-
-<!-- This html file is for displaying the details and images of the selected apartment listing once it has been selected from the results page. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,90 +8,83 @@
     <link rel="stylesheet" href="apartment-details.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar__container">
-            <a href="/" id="navbar__logo">AptMate</a>
-            <div class="navbar__toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="navbar__menu">
-                <li class="navbar__item">
-                    <a href="/" class="navbar__links">Home</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="/login.html" class="navbar__links">Login</a>
-                </li>
-                <li class="navbar__item">
-                    <a href="/favorites.html" class="navbar__links">Favorites</a>
-                </li>
-                <li class="navbar__btn">
-                    <a href="/register.html" class="button">Register</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div id="navbar-container"></div>
 
     <div class="apartment-details-container">
         <h1 id="apartmentTitle">Apartment Details</h1>
+        <div id="apartmentPhotos" class="apartment-photos">
+            <button id="prevPhoto" class="carousel-button">❮</button>
+            <div id="photoContainer" class="photo-container">
+                <!-- Apartment photos will be dynamically inserted here -->
+            </div>
+            <button id="nextPhoto" class="carousel-button">❯</button>
+        </div>
         <div id="apartmentDetails" class="apartment-details">
             <!-- Apartment details will be dynamically inserted here -->
         </div>
     </div>
 
     <script type="module">
-        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDzbLT3EPkXDhmkb8h1vdViuD1-afAuGvo",
-            authDomain: "aptmate-b5eb0.firebaseapp.com",
-            databaseURL: "https://aptmate-b5eb0-default-rtdb.firebaseio.com",
-            projectId: "aptmate-b5eb0",
-            storageBucket: "aptmate-b5eb0.appspot.com",
-            messagingSenderId: "1030969940790",
-            appId: "1:1030969940790:web:6c23201d5c1bc0e4aab197",
-            measurementId: "G-HC8Y3HS30S"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        async function fetchApartmentDetails(apartmentId) {
-            const dbRef = ref(getDatabase());
-            try {
-                const snapshot = await get(child(dbRef, `apartments/${apartmentId}`));
-                if (snapshot.exists()) {
-                    return snapshot.val();
-                } else {
-                    console.log("No data available");
-                }
-            } catch (error) {
-                console.error("Error fetching data: ", error);
-            }
-        }
-
+        import { fetchApartmentData } from './database.js';
+    
         async function displayApartmentDetails() {
             const urlParams = new URLSearchParams(window.location.search);
             const apartmentId = urlParams.get('id');
-            const apartmentDetails = await fetchApartmentDetails(apartmentId);
-
+            console.log(`Apartment ID from URL: ${apartmentId}`); // Added debug log
+            const apartmentDetails = await fetchApartmentData(apartmentId);
+    
             if (apartmentDetails) {
                 document.getElementById('apartmentTitle').innerText = `${apartmentId}`;
+                
+                const photoContainer = document.getElementById('photoContainer');
+                const photos = apartmentDetails.Photos || [];
+                photos.forEach((photoUrl, index) => {
+                    const img = document.createElement('img');
+                    img.src = photoUrl;
+                    img.alt = `Apartment Photo ${index + 1}`;
+                    img.className = "apartment-photo";
+                    img.style.display = index === 0 ? 'block' : 'none'; // Show only the first photo initially
+                    photoContainer.appendChild(img);
+                });
+
+                let currentIndex = 0;
+                const totalPhotos = photos.length;
+
+                document.getElementById('prevPhoto').addEventListener('click', () => {
+                    if (totalPhotos > 1) {
+                        photoContainer.children[currentIndex].style.display = 'none';
+                        currentIndex = (currentIndex - 1 + totalPhotos) % totalPhotos;
+                        photoContainer.children[currentIndex].style.display = 'block';
+                    }
+                });
+
+                document.getElementById('nextPhoto').addEventListener('click', () => {
+                    if (totalPhotos > 1) {
+                        photoContainer.children[currentIndex].style.display = 'none';
+                        currentIndex = (currentIndex + 1) % totalPhotos;
+                        photoContainer.children[currentIndex].style.display = 'block';
+                    }
+                });
+    
                 const detailsContainer = document.getElementById('apartmentDetails');
+                const amenities = Array.isArray(apartmentDetails.Amenities)
+                    ? apartmentDetails.Amenities.join(', ')
+                    : apartmentDetails.Amenities;
                 detailsContainer.innerHTML = `
                     <div class="detail-item"><span class="detail-label">Price:</span> $${apartmentDetails.Price}</div>
                     <div class="detail-item"><span class="detail-label">Bedrooms:</span> ${apartmentDetails.Bedroom}</div>
                     <div class="detail-item"><span class="detail-label">Bathrooms:</span> ${apartmentDetails.Bathroom}</div>
                     <div class="detail-item"><span class="detail-label">Zip Code:</span> ${apartmentDetails.ZipCode}</div>
-                    <div class="detail-item"><span class="detail-label">Amenities:</span> ${apartmentDetails.Amenities}</div>
+                    <div class="detail-item"><span class="detail-label">Amenities:</span> ${amenities}</div>
+                    <div class="detail-item"><span class="detail-label">Website:</span> <a href="${apartmentDetails.Website}" target="_blank">Visit Site</a></div>
                 `;
+            } else {
+                console.log('No apartment details found.');
             }
         }
-
-        // Fetch and display apartment details on page load
+    
         window.onload = displayApartmentDetails;
     </script>
+    <script type="module" src="navbar/navbar.js"></script>
 </body>
 </html>
